@@ -1,0 +1,3187 @@
+[
+ {
+  "hero_id": 18,
+  "position": "pos 1",
+  "facet_id": 0,
+  "build_id": 0,
+  "num_matches": 2536,
+  "num_wins": 1332,
+  "pick_rate": 100,
+  "build_data": {
+   "sixslot": [
+    {
+     "item_id": 116,
+     "pick_rate": 0.925496688741722,
+     "num_matches": 559
+    },
+    {
+     "item_id": 135,
+     "pick_rate": 0.4867549668874172,
+     "num_matches": 294
+    },
+    {
+     "item_id": 603,
+     "pick_rate": 0.6804635761589404,
+     "num_matches": 411
+    },
+    {
+     "item_id": 139,
+     "pick_rate": 0.06291390728476821,
+     "num_matches": 38
+    },
+    {
+     "item_id": 63,
+     "pick_rate": 0.34602649006622516,
+     "num_matches": 209
+    },
+    {
+     "item_id": 154,
+     "pick_rate": 0.05960264900662251,
+     "num_matches": 36
+    },
+    {
+     "item_id": 156,
+     "pick_rate": 0.6225165562913907,
+     "num_matches": 376
+    },
+    {
+     "item_id": 160,
+     "pick_rate": 0.0033112582781456954,
+     "num_matches": 2
+    },
+    {
+     "item_id": 939,
+     "pick_rate": 0.7582781456953642,
+     "num_matches": 458
+    },
+    {
+     "item_id": 1,
+     "pick_rate": 0.22682119205298013,
+     "num_matches": 137
+    },
+    {
+     "item_id": 600,
+     "pick_rate": 0.03145695364238411,
+     "num_matches": 19
+    },
+    {
+     "item_id": 123,
+     "pick_rate": 0.033112582781456956,
+     "num_matches": 20
+    },
+    {
+     "item_id": 252,
+     "pick_rate": 0.04304635761589404,
+     "num_matches": 26
+    },
+    {
+     "item_id": 108,
+     "pick_rate": 0.02152317880794702,
+     "num_matches": 13
+    },
+    {
+     "item_id": 112,
+     "pick_rate": 0.10927152317880796,
+     "num_matches": 66
+    },
+    {
+     "item_id": 225,
+     "pick_rate": 0.048013245033112585,
+     "num_matches": 29
+    },
+    {
+     "item_id": 133,
+     "pick_rate": 0.016556291390728478,
+     "num_matches": 10
+    },
+    {
+     "item_id": 114,
+     "pick_rate": 0.0016556291390728477,
+     "num_matches": 1
+    },
+    {
+     "item_id": 149,
+     "pick_rate": 0.0016556291390728477,
+     "num_matches": 1
+    },
+    {
+     "item_id": 1097,
+     "pick_rate": 0.008278145695364239,
+     "num_matches": 5
+    },
+    {
+     "item_id": 96,
+     "pick_rate": 0.004966887417218543,
+     "num_matches": 3
+    },
+    {
+     "item_id": 152,
+     "pick_rate": 0.014900662251655627,
+     "num_matches": 9
+    },
+    {
+     "item_id": 110,
+     "pick_rate": 0.0033112582781456954,
+     "num_matches": 2
+    },
+    {
+     "item_id": 145,
+     "pick_rate": 0.0016556291390728477,
+     "num_matches": 1
+    },
+    {
+     "item_id": 247,
+     "pick_rate": 0.01324503311258278,
+     "num_matches": 8
+    },
+    {
+     "item_id": 143,
+     "pick_rate": 0.0033112582781456954,
+     "num_matches": 2
+    },
+    {
+     "item_id": 147,
+     "pick_rate": 0.0016556291390728477,
+     "num_matches": 1
+    },
+    {
+     "item_id": 610,
+     "pick_rate": 0.0033112582781456954,
+     "num_matches": 2
+    },
+    {
+     "item_id": 98,
+     "pick_rate": 0.0033112582781456954,
+     "num_matches": 2
+    },
+    {
+     "item_id": 168,
+     "pick_rate": 0.0033112582781456954,
+     "num_matches": 2
+    },
+    {
+     "item_id": 277,
+     "pick_rate": 0.0016556291390728477,
+     "num_matches": 1
+    },
+    {
+     "item_id": 26,
+     "pick_rate": 0.004966887417218543,
+     "num_matches": 3
+    },
+    {
+     "item_id": 151,
+     "pick_rate": 0.0016556291390728477,
+     "num_matches": 1
+    },
+    {
+     "item_id": 256,
+     "pick_rate": 0.0016556291390728477,
+     "num_matches": 1
+    }
+   ],
+   "talents": [
+    {
+     "pr": 0.5451306413301663,
+     "lvl": 10,
+     "left": {
+      "pr": 0.45486935866983375,
+      "name": "special_bonus_unique_sven_gods_strength_slow_resist",
+      "slot": 1,
+      "wins": 585,
+      "count": 1149,
+      "isInnate": false,
+      "isTalent": true,
+      "win_rate": 0.5091,
+      "pick_rate": 0.45486935866983375,
+      "ability_id": 1188,
+      "description": [],
+      "displayName": "+20% God's Strength Slow Resistance"
+     },
+     "slot": 0,
+     "wins": 746,
+     "count": 1377,
+     "right": {
+      "pr": 0.5451306413301663,
+      "name": "special_bonus_unique_sven_5",
+      "slot": 0,
+      "wins": 746,
+      "count": 1377,
+      "isInnate": false,
+      "isTalent": true,
+      "win_rate": 0.5418,
+      "pick_rate": 0.5451306413301663,
+      "ability_id": 673,
+      "description": [],
+      "displayName": "+5s Warcry Duration"
+     },
+     "choice": "rt",
+     "left_pr": 0.45486935866983375,
+     "right_pr": 0.5451306413301663,
+     "win_rate": 0.5418,
+     "left_win_rate": 0.5091,
+     "right_win_rate": 0.5418
+    },
+    {
+     "pr": 0.6858425132598939,
+     "lvl": 15,
+     "left": {
+      "pr": 0.3141574867401061,
+      "name": "special_bonus_unique_sven_8",
+      "slot": 3,
+      "wins": 406,
+      "count": 770,
+      "isInnate": false,
+      "isTalent": true,
+      "win_rate": 0.5273,
+      "pick_rate": 0.3141574867401061,
+      "ability_id": 763,
+      "description": [],
+      "displayName": "+25% Great Cleave Damage"
+     },
+     "slot": 2,
+     "wins": 913,
+     "count": 1681,
+     "right": {
+      "pr": 0.6858425132598939,
+      "name": "special_bonus_unique_sven_3",
+      "slot": 2,
+      "wins": 913,
+      "count": 1681,
+      "isInnate": false,
+      "isTalent": true,
+      "win_rate": 0.5431,
+      "pick_rate": 0.6858425132598939,
+      "ability_id": 6911,
+      "description": [],
+      "displayName": "-12s God's Strength Cooldown"
+     },
+     "choice": "rt",
+     "left_pr": 0.3141574867401061,
+     "right_pr": 0.6858425132598939,
+     "win_rate": 0.5431,
+     "left_win_rate": 0.5273,
+     "right_win_rate": 0.5431
+    },
+    {
+     "pr": 0.6921306948918545,
+     "lvl": 20,
+     "left": {
+      "pr": 0.6921306948918545,
+      "name": "special_bonus_unique_sven_7",
+      "slot": 5,
+      "wins": 838,
+      "count": 1504,
+      "isInnate": false,
+      "isTalent": true,
+      "win_rate": 0.5572,
+      "pick_rate": 0.6921306948918545,
+      "ability_id": 716,
+      "description": [],
+      "displayName": "+8 Warcry Armor"
+     },
+     "slot": 5,
+     "wins": 838,
+     "count": 1504,
+     "right": {
+      "pr": 0.3078693051081454,
+      "name": "special_bonus_unique_sven_stormhammer_cooldown",
+      "slot": 4,
+      "wins": 402,
+      "count": 669,
+      "isInnate": false,
+      "isTalent": true,
+      "win_rate": 0.6009,
+      "pick_rate": 0.3078693051081454,
+      "ability_id": 1790,
+      "description": [],
+      "displayName": "-25% Storm Hammer Cooldown and Mana Cost"
+     },
+     "choice": "lt",
+     "left_pr": 0.6921306948918545,
+     "right_pr": 0.3078693051081454,
+     "win_rate": 0.5572,
+     "left_win_rate": 0.5572,
+     "right_win_rate": 0.6009
+    },
+    {
+     "pr": 0.8755364806866953,
+     "lvl": 25,
+     "left": {
+      "pr": 0.12446351931330472,
+      "name": "special_bonus_unique_sven_4",
+      "slot": 7,
+      "wins": 107,
+      "count": 174,
+      "isInnate": false,
+      "isTalent": true,
+      "win_rate": 0.6149,
+      "pick_rate": 0.12446351931330472,
+      "ability_id": 7112,
+      "description": [],
+      "displayName": "+1s Storm Hammer Stun Duration"
+     },
+     "slot": 6,
+     "wins": 733,
+     "count": 1224,
+     "right": {
+      "pr": 0.8755364806866953,
+      "name": "special_bonus_unique_sven_2",
+      "slot": 6,
+      "wins": 733,
+      "count": 1224,
+      "isInnate": false,
+      "isTalent": true,
+      "win_rate": 0.5989,
+      "pick_rate": 0.8755364806866953,
+      "ability_id": 6910,
+      "description": [],
+      "displayName": "+50% God's Strength Damage"
+     },
+     "choice": "rt",
+     "left_pr": 0.12446351931330472,
+     "right_pr": 0.8755364806866953,
+     "win_rate": 0.5989,
+     "left_win_rate": 0.6149,
+     "right_win_rate": 0.5989
+    }
+   ],
+   "num_wins": 1332,
+   "win_rate": 0.5252365930599369,
+   "abilities": [
+    {
+     "ability_id": 5094,
+     "name": "sven_storm_bolt",
+     "displayName": "Storm Hammer",
+     "description": [],
+     "isTalent": false,
+     "isInnate": false,
+     "slot": null
+    },
+    {
+     "ability_id": 5096,
+     "name": "sven_warcry",
+     "displayName": "Warcry",
+     "description": [],
+     "isTalent": false,
+     "isInnate": false,
+     "slot": null
+    },
+    {
+     "ability_id": 5095,
+     "name": "sven_great_cleave",
+     "displayName": "Great Cleave",
+     "description": [],
+     "isTalent": false,
+     "isInnate": false,
+     "slot": null
+    },
+    {
+     "ability_id": 5095,
+     "name": "sven_great_cleave",
+     "displayName": "Great Cleave",
+     "description": [],
+     "isTalent": false,
+     "isInnate": false,
+     "slot": null
+    },
+    {
+     "ability_id": 5095,
+     "name": "sven_great_cleave",
+     "displayName": "Great Cleave",
+     "description": [],
+     "isTalent": false,
+     "isInnate": false,
+     "slot": null
+    },
+    {
+     "ability_id": 5097,
+     "name": "sven_gods_strength",
+     "displayName": "God's Strength",
+     "description": [],
+     "isTalent": false,
+     "isInnate": false,
+     "slot": null
+    },
+    {
+     "ability_id": 5095,
+     "name": "sven_great_cleave",
+     "displayName": "Great Cleave",
+     "description": [],
+     "isTalent": false,
+     "isInnate": false,
+     "slot": null
+    },
+    {
+     "ability_id": 5094,
+     "name": "sven_storm_bolt",
+     "displayName": "Storm Hammer",
+     "description": [],
+     "isTalent": false,
+     "isInnate": false,
+     "slot": null
+    },
+    {
+     "ability_id": 5094,
+     "name": "sven_storm_bolt",
+     "displayName": "Storm Hammer",
+     "description": [],
+     "isTalent": false,
+     "isInnate": false,
+     "slot": null
+    },
+    {
+     "ability_id": 5094,
+     "name": "sven_storm_bolt",
+     "displayName": "Storm Hammer",
+     "description": [],
+     "isTalent": false,
+     "isInnate": false,
+     "slot": null
+    }
+   ],
+   "pick_rate": 1,
+   "num_matches": 2536,
+   "anchor_build": [
+    [
+     73,
+     36,
+     63,
+     26,
+     172,
+     252,
+     1,
+     116,
+     149,
+     141,
+     939,
+     603,
+     156,
+     135
+    ],
+    2950
+   ],
+   "anchor_items": [
+    {
+     "pr": 0.6569400630914827,
+     "key": "36::1",
+     "wins": 0,
+     "count": 1666,
+     "rel_pr": 0.6569400630914827,
+     "win_rate": 0.5282112845138055,
+     "rel_count": 1666,
+     "avg_minute": 3.309123649459784,
+     "std_minute": 4.3646650401470675,
+     "raw_item_id": 36,
+     "rel_num_matches": 2536
+    },
+    {
+     "pr": 0.9794952681388012,
+     "key": "63::1",
+     "wins": 0,
+     "count": 2484,
+     "rel_pr": 0.9794952681388012,
+     "win_rate": 0.5229468599033816,
+     "rel_count": 2484,
+     "avg_minute": 6.067632850241546,
+     "std_minute": 1.7629938214972416,
+     "raw_item_id": 63,
+     "rel_num_matches": 2536
+    },
+    {
+     "pr": 0.90102523659306,
+     "key": "26::1",
+     "wins": 0,
+     "count": 2285,
+     "rel_pr": 0.90102523659306,
+     "win_rate": 0.5251641137855579,
+     "rel_count": 2285,
+     "avg_minute": 8.522100656455143,
+     "std_minute": 4.345179371562225,
+     "raw_item_id": 26,
+     "rel_num_matches": 2536
+    },
+    {
+     "pr": 0.9735804416403786,
+     "key": "172::1",
+     "wins": 0,
+     "count": 2469,
+     "rel_pr": 0.9735804416403786,
+     "win_rate": 0.5232887808829486,
+     "rel_count": 2469,
+     "avg_minute": 10.122721749696233,
+     "std_minute": 1.670245082319045,
+     "raw_item_id": 172,
+     "rel_num_matches": 2536
+    },
+    {
+     "pr": 0.9471608832807572,
+     "key": "252::1",
+     "wins": 0,
+     "count": 2402,
+     "rel_pr": 0.9482418016594232,
+     "win_rate": 0.5341382181515404,
+     "rel_count": 2400,
+     "avg_minute": 14.810574521232306,
+     "std_minute": 2.065014410576123,
+     "raw_item_id": 252,
+     "rel_num_matches": 2531
+    },
+    {
+     "pr": 0.8935331230283912,
+     "key": "1::1",
+     "wins": 0,
+     "count": 2266,
+     "rel_pr": 0.9033293221018852,
+     "win_rate": 0.5414827890556045,
+     "rel_count": 2252,
+     "avg_minute": 18.189320388349515,
+     "std_minute": 3.2513003409497627,
+     "raw_item_id": 1,
+     "rel_num_matches": 2493
+    },
+    {
+     "pr": 0.7827287066246057,
+     "key": "149::1",
+     "wins": 0,
+     "count": 1985,
+     "rel_pr": 0.8358608385370205,
+     "win_rate": 0.5717884130982368,
+     "rel_count": 1874,
+     "avg_minute": 23.518387909319895,
+     "std_minute": 4.52329981649227,
+     "raw_item_id": 149,
+     "rel_num_matches": 2242
+    },
+    {
+     "pr": 0.819794952681388,
+     "key": "116::1",
+     "wins": 0,
+     "count": 2079,
+     "rel_pr": 0.8933092224231465,
+     "win_rate": 0.544973544973545,
+     "rel_count": 1976,
+     "avg_minute": 24.584896584896583,
+     "std_minute": 4.077576603046383,
+     "raw_item_id": 116,
+     "rel_num_matches": 2212
+    },
+    {
+     "pr": 0.7133280757097792,
+     "key": "141::1",
+     "wins": 0,
+     "count": 1809,
+     "rel_pr": 0.831140350877193,
+     "win_rate": 0.611387506909895,
+     "rel_count": 1516,
+     "avg_minute": 28.011608623548923,
+     "std_minute": 4.751582100660533,
+     "raw_item_id": 141,
+     "rel_num_matches": 1824
+    },
+    {
+     "pr": 0.597397476340694,
+     "key": "939::1",
+     "wins": 0,
+     "count": 1515,
+     "rel_pr": 0.7258064516129032,
+     "win_rate": 0.6396039603960396,
+     "rel_count": 1170,
+     "avg_minute": 28.96105610561056,
+     "std_minute": 5.78781594438637,
+     "raw_item_id": 939,
+     "rel_num_matches": 1612
+    }
+   ],
+   "abilities_new": [
+    [
+     [
+      5094,
+      5096,
+      5095,
+      5095,
+      5095,
+      5097,
+      5095,
+      5094,
+      5094,
+      5094
+     ],
+     {
+      "pr": 0.1858,
+      "wins": 241,
+      "count": 465,
+      "win_rate": 0.5183
+     }
+    ],
+    [
+     [
+      5094,
+      5096,
+      5095,
+      5095,
+      5095,
+      5097,
+      5095,
+      5096,
+      5096,
+      5096
+     ],
+     {
+      "pr": 0.1049,
+      "wins": 131,
+      "count": 266,
+      "win_rate": 0.4925
+     }
+    ],
+    [
+     [
+      5094,
+      5096,
+      5094,
+      5095,
+      5095,
+      5097,
+      5095,
+      5095,
+      5094,
+      5094
+     ],
+     {
+      "pr": 0.1026,
+      "wins": 150,
+      "count": 260,
+      "win_rate": 0.5769
+     }
+    ],
+    [
+     [
+      5094,
+      5096,
+      5095,
+      5095,
+      5095,
+      5097,
+      5095,
+      5094,
+      5094,
+      1188
+     ],
+     {
+      "pr": 0.0508,
+      "wins": 64,
+      "count": 128,
+      "win_rate": 0.5
+     }
+    ],
+    [
+     [
+      5094,
+      5096,
+      5094,
+      5095,
+      5095,
+      5097,
+      5095,
+      5095,
+      5096,
+      5096
+     ],
+     {
+      "pr": 0.0387,
+      "wins": 56,
+      "count": 96,
+      "win_rate": 0.5833
+     }
+    ]
+   ],
+   "anchor_items2": [
+    {
+     "pr": 0.9794952681388012,
+     "key": "63::1",
+     "wins": 0,
+     "count": 2484,
+     "rel_pr": 0.9794952681388012,
+     "win_rate": 0.5229468599033816,
+     "rel_count": 2484,
+     "avg_minute": 6.067632850241546,
+     "std_minute": 1.7629938214972416,
+     "raw_item_id": 63,
+     "rel_num_matches": 2536
+    },
+    {
+     "pr": 0.9735804416403786,
+     "key": "172::1",
+     "wins": 0,
+     "count": 2469,
+     "rel_pr": 0.9735804416403786,
+     "win_rate": 0.5232887808829486,
+     "rel_count": 2469,
+     "avg_minute": 10.122721749696233,
+     "std_minute": 1.670245082319045,
+     "raw_item_id": 172,
+     "rel_num_matches": 2536
+    },
+    {
+     "pr": 0.9471608832807572,
+     "key": "252::1",
+     "wins": 0,
+     "count": 2402,
+     "rel_pr": 0.9482418016594232,
+     "win_rate": 0.5341382181515404,
+     "rel_count": 2400,
+     "avg_minute": 14.810574521232306,
+     "std_minute": 2.065014410576123,
+     "raw_item_id": 252,
+     "rel_num_matches": 2531
+    },
+    {
+     "pr": 0.8935331230283912,
+     "key": "1::1",
+     "wins": 0,
+     "count": 2266,
+     "rel_pr": 0.9033293221018852,
+     "win_rate": 0.5414827890556045,
+     "rel_count": 2252,
+     "avg_minute": 18.189320388349515,
+     "std_minute": 3.2513003409497627,
+     "raw_item_id": 1,
+     "rel_num_matches": 2493
+    },
+    {
+     "pr": 0.7827287066246057,
+     "key": "149::1",
+     "wins": 0,
+     "count": 1985,
+     "rel_pr": 0.8358608385370205,
+     "win_rate": 0.5717884130982368,
+     "rel_count": 1874,
+     "avg_minute": 23.518387909319895,
+     "std_minute": 4.52329981649227,
+     "raw_item_id": 149,
+     "rel_num_matches": 2242
+    },
+    {
+     "pr": 0.819794952681388,
+     "key": "116::1",
+     "wins": 0,
+     "count": 2079,
+     "rel_pr": 0.8933092224231465,
+     "win_rate": 0.544973544973545,
+     "rel_count": 1976,
+     "avg_minute": 24.584896584896583,
+     "std_minute": 4.077576603046383,
+     "raw_item_id": 116,
+     "rel_num_matches": 2212
+    },
+    {
+     "pr": 0.7133280757097792,
+     "key": "141::1",
+     "wins": 0,
+     "count": 1809,
+     "rel_pr": 0.831140350877193,
+     "win_rate": 0.611387506909895,
+     "rel_count": 1516,
+     "avg_minute": 28.011608623548923,
+     "std_minute": 4.751582100660533,
+     "raw_item_id": 141,
+     "rel_num_matches": 1824
+    },
+    {
+     "pr": 0.597397476340694,
+     "key": "939::1",
+     "wins": 0,
+     "count": 1515,
+     "rel_pr": 0.7258064516129032,
+     "win_rate": 0.6396039603960396,
+     "rel_count": 1170,
+     "avg_minute": 28.96105610561056,
+     "std_minute": 5.78781594438637,
+     "raw_item_id": 939,
+     "rel_num_matches": 1612
+    }
+   ],
+   "neutral_stats": {
+    "0": {
+     "565": {
+      "wins": 199,
+      "count": 375,
+      "win_rate": 0.5306666666666666,
+      "pick_rate": 0.14792899408284024,
+      "displayName": "Chipped Vest",
+      "shortName": "chipped_vest"
+     },
+     "577": {
+      "wins": 263,
+      "count": 523,
+      "win_rate": 0.502868068833652,
+      "pick_rate": 0.20631163708086783,
+      "displayName": "Possessed Mask",
+      "shortName": "possessed_mask"
+     },
+     "840": {
+      "wins": 1,
+      "count": 1,
+      "win_rate": 1,
+      "pick_rate": 0.0003944773175542406,
+      "displayName": "Tumbler's Toy",
+      "shortName": "pogo_stick"
+     },
+     "947": {
+      "wins": 78,
+      "count": 140,
+      "win_rate": 0.5571428571428572,
+      "pick_rate": 0.055226824457593686,
+      "displayName": "Occult Bracelet",
+      "shortName": "occult_bracelet"
+     },
+     "950": {
+      "wins": 2,
+      "count": 2,
+      "win_rate": 1,
+      "pick_rate": 0.0007889546351084812,
+      "displayName": "Defiant Shell",
+      "shortName": "defiant_shell"
+     },
+     "1077": {
+      "wins": 100,
+      "count": 206,
+      "win_rate": 0.4854368932038835,
+      "pick_rate": 0.08126232741617356,
+      "displayName": "Dagger of Ristul",
+      "shortName": "dagger_of_ristul"
+     },
+     "1599": {
+      "wins": 1,
+      "count": 1,
+      "win_rate": 1,
+      "pick_rate": 0.0003944773175542406,
+      "displayName": "Mana Draught",
+      "shortName": "mana_draught"
+     },
+     "1606": {
+      "wins": 70,
+      "count": 145,
+      "win_rate": 0.4827586206896552,
+      "pick_rate": 0.05719921104536489,
+      "displayName": "Pollywog Charm",
+      "shortName": "polliwog_charm"
+     },
+     "1637": {
+      "wins": 22,
+      "count": 32,
+      "win_rate": 0.6875,
+      "pick_rate": 0.0126232741617357,
+      "displayName": "Kobold Cup",
+      "shortName": "kobold_cup"
+     },
+     "1638": {
+      "wins": 96,
+      "count": 182,
+      "win_rate": 0.5274725274725275,
+      "pick_rate": 0.07179487179487179,
+      "displayName": "Dormant Curio",
+      "shortName": "dormant_curio"
+     },
+     "1716": {
+      "wins": 154,
+      "count": 285,
+      "win_rate": 0.5403508771929825,
+      "pick_rate": 0.1124260355029586,
+      "displayName": "Weighted Dice",
+      "shortName": "weighted_dice"
+     },
+     "1717": {
+      "wins": 47,
+      "count": 83,
+      "win_rate": 0.5662650602409639,
+      "pick_rate": 0.03274161735700197,
+      "displayName": "Ash Legion Shield",
+      "shortName": "ash_legion_shield"
+     },
+     "1861": {
+      "wins": 27,
+      "count": 59,
+      "win_rate": 0.4576271186440678,
+      "pick_rate": 0.023274161735700197,
+      "displayName": "Stonefeather Satchel",
+      "shortName": "stonefeather_satchel"
+     },
+     "1868": {
+      "wins": 30,
+      "count": 67,
+      "win_rate": 0.4477611940298507,
+      "pick_rate": 0.02642998027613412,
+      "displayName": "Forager's Kit",
+      "shortName": "foragers_kit"
+     },
+     "2097": {
+      "wins": 242,
+      "count": 434,
+      "win_rate": 0.5576036866359447,
+      "pick_rate": 0.17120315581854045,
+      "displayName": "Duelist Gloves",
+      "shortName": "duelist_gloves"
+     }
+    },
+    "1": {
+     "71": {
+      "wins": 139,
+      "count": 289,
+      "win_rate": 0.4809688581314879,
+      "pick_rate": 0.11509358821186778,
+      "displayName": "Poor Man's Shield",
+      "shortName": "poor_mans_shield"
+     },
+     "187": {
+      "wins": 140,
+      "count": 251,
+      "win_rate": 0.5577689243027888,
+      "pick_rate": 0.09996017522899243,
+      "displayName": "Medallion of Courage",
+      "shortName": "medallion_of_courage"
+     },
+     "359": {
+      "wins": 48,
+      "count": 91,
+      "win_rate": 0.5274725274725275,
+      "pick_rate": 0.0362405416168857,
+      "displayName": "Essence Ring",
+      "shortName": "essence_ring"
+     },
+     "565": {
+      "wins": 34,
+      "count": 64,
+      "win_rate": 0.53125,
+      "pick_rate": 0.025487853444842692,
+      "displayName": "Chipped Vest",
+      "shortName": "chipped_vest"
+     },
+     "577": {
+      "wins": 50,
+      "count": 118,
+      "win_rate": 0.423728813559322,
+      "pick_rate": 0.04699322978892871,
+      "displayName": "Possessed Mask",
+      "shortName": "possessed_mask"
+     },
+     "840": {
+      "wins": 120,
+      "count": 216,
+      "win_rate": 0.5555555555555556,
+      "pick_rate": 0.08602150537634409,
+      "displayName": "Tumbler's Toy",
+      "shortName": "pogo_stick"
+     },
+     "945": {
+      "wins": 2,
+      "count": 3,
+      "win_rate": 0.6666666666666666,
+      "pick_rate": 0.0011947431302270011,
+      "displayName": "Seeds of Serenity",
+      "shortName": "seeds_of_serenity"
+     },
+     "947": {
+      "wins": 7,
+      "count": 13,
+      "win_rate": 0.5384615384615384,
+      "pick_rate": 0.005177220230983672,
+      "displayName": "Occult Bracelet",
+      "shortName": "occult_bracelet"
+     },
+     "950": {
+      "wins": 383,
+      "count": 739,
+      "win_rate": 0.5182679296346414,
+      "pick_rate": 0.294305057745918,
+      "displayName": "Defiant Shell",
+      "shortName": "defiant_shell"
+     },
+     "1077": {
+      "wins": 20,
+      "count": 41,
+      "win_rate": 0.4878048780487805,
+      "pick_rate": 0.01632815611310235,
+      "displayName": "Dagger of Ristul",
+      "shortName": "dagger_of_ristul"
+     },
+     "1599": {
+      "wins": 129,
+      "count": 215,
+      "win_rate": 0.6,
+      "pick_rate": 0.08562325766626842,
+      "displayName": "Mana Draught",
+      "shortName": "mana_draught"
+     },
+     "1601": {
+      "wins": 70,
+      "count": 139,
+      "win_rate": 0.5035971223021583,
+      "pick_rate": 0.055356431700517725,
+      "displayName": "Crippling Crossbow",
+      "shortName": "crippling_crossbow"
+     },
+     "1603": {
+      "wins": 2,
+      "count": 2,
+      "win_rate": 1,
+      "pick_rate": 0.0007964954201513341,
+      "displayName": "Gunpowder Gauntlet",
+      "shortName": "gunpowder_gauntlets"
+     },
+     "1604": {
+      "wins": 3,
+      "count": 8,
+      "win_rate": 0.375,
+      "pick_rate": 0.0031859816806053365,
+      "displayName": "Searing Signet",
+      "shortName": "searing_signet"
+     },
+     "1605": {
+      "wins": 0,
+      "count": 1,
+      "win_rate": 0,
+      "pick_rate": 0.00039824771007566706,
+      "displayName": "Serrated Shiv",
+      "shortName": "serrated_shiv"
+     },
+     "1606": {
+      "wins": 1,
+      "count": 2,
+      "win_rate": 0.5,
+      "pick_rate": 0.0007964954201513341,
+      "displayName": "Pollywog Charm",
+      "shortName": "polliwog_charm"
+     },
+     "1637": {
+      "wins": 3,
+      "count": 3,
+      "win_rate": 1,
+      "pick_rate": 0.0011947431302270011,
+      "displayName": "Kobold Cup",
+      "shortName": "kobold_cup"
+     },
+     "1638": {
+      "wins": 41,
+      "count": 80,
+      "win_rate": 0.5125,
+      "pick_rate": 0.03185981680605336,
+      "displayName": "Dormant Curio",
+      "shortName": "dormant_curio"
+     },
+     "1716": {
+      "wins": 36,
+      "count": 71,
+      "win_rate": 0.5070422535211268,
+      "pick_rate": 0.028275587415372363,
+      "displayName": "Weighted Dice",
+      "shortName": "weighted_dice"
+     },
+     "1717": {
+      "wins": 0,
+      "count": 2,
+      "win_rate": 0,
+      "pick_rate": 0.0007964954201513341,
+      "displayName": "Ash Legion Shield",
+      "shortName": "ash_legion_shield"
+     },
+     "1861": {
+      "wins": 4,
+      "count": 5,
+      "win_rate": 0.8,
+      "pick_rate": 0.001991238550378335,
+      "displayName": "Stonefeather Satchel",
+      "shortName": "stonefeather_satchel"
+     },
+     "1868": {
+      "wins": 3,
+      "count": 6,
+      "win_rate": 0.5,
+      "pick_rate": 0.0023894862604540022,
+      "displayName": "Forager's Kit",
+      "shortName": "foragers_kit"
+     },
+     "2097": {
+      "wins": 86,
+      "count": 152,
+      "win_rate": 0.5657894736842105,
+      "pick_rate": 0.06053365193150139,
+      "displayName": "Duelist Gloves",
+      "shortName": "duelist_gloves"
+     }
+    },
+    "2": {
+     "71": {
+      "wins": 5,
+      "count": 15,
+      "win_rate": 0.3333333333333333,
+      "pick_rate": 0.006944444444444444,
+      "displayName": "Poor Man's Shield",
+      "shortName": "poor_mans_shield"
+     },
+     "187": {
+      "wins": 17,
+      "count": 31,
+      "win_rate": 0.5483870967741935,
+      "pick_rate": 0.014351851851851852,
+      "displayName": "Medallion of Courage",
+      "shortName": "medallion_of_courage"
+     },
+     "359": {
+      "wins": 5,
+      "count": 8,
+      "win_rate": 0.625,
+      "pick_rate": 0.003703703703703704,
+      "displayName": "Essence Ring",
+      "shortName": "essence_ring"
+     },
+     "565": {
+      "wins": 8,
+      "count": 12,
+      "win_rate": 0.6666666666666666,
+      "pick_rate": 0.005555555555555556,
+      "displayName": "Chipped Vest",
+      "shortName": "chipped_vest"
+     },
+     "574": {
+      "wins": 57,
+      "count": 119,
+      "win_rate": 0.4789915966386555,
+      "pick_rate": 0.05509259259259259,
+      "displayName": "Cloak of Flames",
+      "shortName": "cloak_of_flames"
+     },
+     "577": {
+      "wins": 6,
+      "count": 19,
+      "win_rate": 0.3157894736842105,
+      "pick_rate": 0.008796296296296297,
+      "displayName": "Possessed Mask",
+      "shortName": "possessed_mask"
+     },
+     "585": {
+      "wins": 24,
+      "count": 36,
+      "win_rate": 0.6666666666666666,
+      "pick_rate": 0.016666666666666666,
+      "displayName": "Stormcrafter",
+      "shortName": "stormcrafter"
+     },
+     "675": {
+      "wins": 3,
+      "count": 6,
+      "win_rate": 0.5,
+      "pick_rate": 0.002777777777777778,
+      "displayName": "Psychic Headband",
+      "shortName": "psychic_headband"
+     },
+     "840": {
+      "wins": 11,
+      "count": 23,
+      "win_rate": 0.4782608695652174,
+      "pick_rate": 0.010648148148148148,
+      "displayName": "Tumbler's Toy",
+      "shortName": "pogo_stick"
+     },
+     "950": {
+      "wins": 129,
+      "count": 244,
+      "win_rate": 0.5286885245901639,
+      "pick_rate": 0.11296296296296296,
+      "displayName": "Defiant Shell",
+      "shortName": "defiant_shell"
+     },
+     "1077": {
+      "wins": 4,
+      "count": 8,
+      "win_rate": 0.5,
+      "pick_rate": 0.003703703703703704,
+      "displayName": "Dagger of Ristul",
+      "shortName": "dagger_of_ristul"
+     },
+     "1598": {
+      "wins": 92,
+      "count": 158,
+      "win_rate": 0.5822784810126582,
+      "pick_rate": 0.07314814814814814,
+      "displayName": "Unrelenting Eye",
+      "shortName": "unrelenting_eye"
+     },
+     "1599": {
+      "wins": 12,
+      "count": 21,
+      "win_rate": 0.5714285714285714,
+      "pick_rate": 0.009722222222222222,
+      "displayName": "Mana Draught",
+      "shortName": "mana_draught"
+     },
+     "1601": {
+      "wins": 11,
+      "count": 22,
+      "win_rate": 0.5,
+      "pick_rate": 0.010185185185185186,
+      "displayName": "Crippling Crossbow",
+      "shortName": "crippling_crossbow"
+     },
+     "1603": {
+      "wins": 334,
+      "count": 623,
+      "win_rate": 0.536115569823435,
+      "pick_rate": 0.2884259259259259,
+      "displayName": "Gunpowder Gauntlet",
+      "shortName": "gunpowder_gauntlets"
+     },
+     "1605": {
+      "wins": 336,
+      "count": 643,
+      "win_rate": 0.5225505443234837,
+      "pick_rate": 0.29768518518518516,
+      "displayName": "Serrated Shiv",
+      "shortName": "serrated_shiv"
+     },
+     "1638": {
+      "wins": 20,
+      "count": 35,
+      "win_rate": 0.5714285714285714,
+      "pick_rate": 0.016203703703703703,
+      "displayName": "Dormant Curio",
+      "shortName": "dormant_curio"
+     },
+     "1640": {
+      "wins": 12,
+      "count": 24,
+      "win_rate": 0.5,
+      "pick_rate": 0.011111111111111112,
+      "displayName": "Jidi Pollen Bag",
+      "shortName": "jidi_pollen_bag"
+     },
+     "1643": {
+      "wins": 3,
+      "count": 3,
+      "win_rate": 1,
+      "pick_rate": 0.001388888888888889,
+      "displayName": "Giant's Maul",
+      "shortName": "giant_maul"
+     },
+     "1716": {
+      "wins": 3,
+      "count": 10,
+      "win_rate": 0.3,
+      "pick_rate": 0.004629629629629629,
+      "displayName": "Weighted Dice",
+      "shortName": "weighted_dice"
+     },
+     "1721": {
+      "wins": 0,
+      "count": 1,
+      "win_rate": 0,
+      "pick_rate": 0.000462962962962963,
+      "displayName": "Flayer's Bota",
+      "shortName": "flayers_bota"
+     },
+     "1859": {
+      "wins": 5,
+      "count": 9,
+      "win_rate": 0.5555555555555556,
+      "pick_rate": 0.004166666666666667,
+      "displayName": "Spellslinger",
+      "shortName": "spellslinger"
+     },
+     "1861": {
+      "wins": 0,
+      "count": 1,
+      "win_rate": 0,
+      "pick_rate": 0.000462962962962963,
+      "displayName": "Stonefeather Satchel",
+      "shortName": "stonefeather_satchel"
+     },
+     "1868": {
+      "wins": 0,
+      "count": 1,
+      "win_rate": 0,
+      "pick_rate": 0.000462962962962963,
+      "displayName": "Forager's Kit",
+      "shortName": "foragers_kit"
+     },
+     "1873": {
+      "wins": 21,
+      "count": 46,
+      "win_rate": 0.4565217391304347,
+      "pick_rate": 0.021296296296296296,
+      "displayName": "Partisan's Brand",
+      "shortName": "partisans_brand"
+     },
+     "2097": {
+      "wins": 20,
+      "count": 42,
+      "win_rate": 0.47619047619047616,
+      "pick_rate": 0.019444444444444445,
+      "displayName": "Duelist Gloves",
+      "shortName": "duelist_gloves"
+     }
+    },
+    "3": {
+     "71": {
+      "wins": 1,
+      "count": 2,
+      "win_rate": 0.5,
+      "pick_rate": 0.0017391304347826088,
+      "displayName": "Poor Man's Shield",
+      "shortName": "poor_mans_shield"
+     },
+     "187": {
+      "wins": 0,
+      "count": 1,
+      "win_rate": 0,
+      "pick_rate": 0.0008695652173913044,
+      "displayName": "Medallion of Courage",
+      "shortName": "medallion_of_courage"
+     },
+     "574": {
+      "wins": 2,
+      "count": 2,
+      "win_rate": 1,
+      "pick_rate": 0.0017391304347826088,
+      "displayName": "Cloak of Flames",
+      "shortName": "cloak_of_flames"
+     },
+     "577": {
+      "wins": 0,
+      "count": 1,
+      "win_rate": 0,
+      "pick_rate": 0.0008695652173913044,
+      "displayName": "Possessed Mask",
+      "shortName": "possessed_mask"
+     },
+     "585": {
+      "wins": 1,
+      "count": 1,
+      "win_rate": 1,
+      "pick_rate": 0.0008695652173913044,
+      "displayName": "Stormcrafter",
+      "shortName": "stormcrafter"
+     },
+     "840": {
+      "wins": 0,
+      "count": 1,
+      "win_rate": 0,
+      "pick_rate": 0.0008695652173913044,
+      "displayName": "Tumbler's Toy",
+      "shortName": "pogo_stick"
+     },
+     "950": {
+      "wins": 17,
+      "count": 35,
+      "win_rate": 0.4857142857142857,
+      "pick_rate": 0.030434782608695653,
+      "displayName": "Defiant Shell",
+      "shortName": "defiant_shell"
+     },
+     "1168": {
+      "wins": 25,
+      "count": 42,
+      "win_rate": 0.5952380952380952,
+      "pick_rate": 0.036521739130434785,
+      "displayName": "Rattlecage",
+      "shortName": "rattlecage"
+     },
+     "1598": {
+      "wins": 4,
+      "count": 7,
+      "win_rate": 0.5714285714285714,
+      "pick_rate": 0.00608695652173913,
+      "displayName": "Unrelenting Eye",
+      "shortName": "unrelenting_eye"
+     },
+     "1601": {
+      "wins": 0,
+      "count": 1,
+      "win_rate": 0,
+      "pick_rate": 0.0008695652173913044,
+      "displayName": "Crippling Crossbow",
+      "shortName": "crippling_crossbow"
+     },
+     "1603": {
+      "wins": 24,
+      "count": 58,
+      "win_rate": 0.41379310344827586,
+      "pick_rate": 0.050434782608695654,
+      "displayName": "Gunpowder Gauntlet",
+      "shortName": "gunpowder_gauntlets"
+     },
+     "1605": {
+      "wins": 41,
+      "count": 69,
+      "win_rate": 0.5942028985507246,
+      "pick_rate": 0.06,
+      "displayName": "Serrated Shiv",
+      "shortName": "serrated_shiv"
+     },
+     "1643": {
+      "wins": 214,
+      "count": 397,
+      "win_rate": 0.5390428211586902,
+      "pick_rate": 0.3452173913043478,
+      "displayName": "Giant's Maul",
+      "shortName": "giant_maul"
+     },
+     "1719": {
+      "wins": 13,
+      "count": 16,
+      "win_rate": 0.8125,
+      "pick_rate": 0.01391304347826087,
+      "displayName": "Metamorphic Mandible",
+      "shortName": "metamorphic_mandible"
+     },
+     "1720": {
+      "wins": 28,
+      "count": 48,
+      "win_rate": 0.5833333333333334,
+      "pick_rate": 0.04173913043478261,
+      "displayName": "Idol of Scree'Auk",
+      "shortName": "idol_of_screeauk"
+     },
+     "1721": {
+      "wins": 125,
+      "count": 251,
+      "win_rate": 0.4980079681274901,
+      "pick_rate": 0.2182608695652174,
+      "displayName": "Flayer's Bota",
+      "shortName": "flayers_bota"
+     },
+     "1860": {
+      "wins": 40,
+      "count": 77,
+      "win_rate": 0.5194805194805194,
+      "pick_rate": 0.06695652173913043,
+      "displayName": "Prophet's Pendulum",
+      "shortName": "prophets_pendulum"
+     },
+     "1862": {
+      "wins": 40,
+      "count": 86,
+      "win_rate": 0.46511627906976744,
+      "pick_rate": 0.07478260869565218,
+      "displayName": "Enchanter's Bauble",
+      "shortName": "enchanters_bauble"
+     },
+     "1864": {
+      "wins": 9,
+      "count": 14,
+      "win_rate": 0.6428571428571429,
+      "pick_rate": 0.01217391304347826,
+      "displayName": "Conjurer's Catalyst",
+      "shortName": "conjurers_catalyst"
+     },
+     "1873": {
+      "wins": 1,
+      "count": 3,
+      "win_rate": 0.3333333333333333,
+      "pick_rate": 0.0026086956521739132,
+      "displayName": "Partisan's Brand",
+      "shortName": "partisans_brand"
+     },
+     "2097": {
+      "wins": 2,
+      "count": 4,
+      "win_rate": 0.5,
+      "pick_rate": 0.0034782608695652175,
+      "displayName": "Duelist Gloves",
+      "shortName": "duelist_gloves"
+     },
+     "2190": {
+      "wins": 15,
+      "count": 34,
+      "win_rate": 0.4411764705882353,
+      "pick_rate": 0.029565217391304348,
+      "displayName": "Dandelion Amulet",
+      "shortName": "dandelion_amulet"
+     }
+    },
+    "4": {
+     "292": {
+      "wins": 6,
+      "count": 12,
+      "win_rate": 0.5,
+      "pick_rate": 0.2,
+      "displayName": "Stygian Desolator",
+      "shortName": "desolator_2"
+     },
+     "326": {
+      "wins": 1,
+      "count": 1,
+      "win_rate": 1,
+      "pick_rate": 0.016666666666666666,
+      "displayName": "Spider Legs",
+      "shortName": "spider_legs"
+     },
+     "370": {
+      "wins": 2,
+      "count": 2,
+      "win_rate": 1,
+      "pick_rate": 0.03333333333333333,
+      "displayName": "Book of the Dead",
+      "shortName": "demonicon"
+     },
+     "371": {
+      "wins": 4,
+      "count": 7,
+      "win_rate": 0.5714285714285714,
+      "pick_rate": 0.11666666666666668,
+      "displayName": "Fallen Sky",
+      "shortName": "fallen_sky"
+     },
+     "377": {
+      "wins": 5,
+      "count": 10,
+      "win_rate": 0.5,
+      "pick_rate": 0.16666666666666666,
+      "displayName": "Minotaur Horn",
+      "shortName": "minotaur_horn"
+     },
+     "837": {
+      "wins": 4,
+      "count": 5,
+      "win_rate": 0.8,
+      "pick_rate": 0.08333333333333333,
+      "displayName": "Witchbane",
+      "shortName": "heavy_blade"
+     },
+     "950": {
+      "wins": 0,
+      "count": 1,
+      "win_rate": 0,
+      "pick_rate": 0.016666666666666666,
+      "displayName": "Defiant Shell",
+      "shortName": "defiant_shell"
+     },
+     "1644": {
+      "wins": 4,
+      "count": 16,
+      "win_rate": 0.25,
+      "pick_rate": 0.26666666666666666,
+      "displayName": "Divine Regalia",
+      "shortName": "divine_regalia"
+     },
+     "1718": {
+      "wins": 0,
+      "count": 1,
+      "win_rate": 0,
+      "pick_rate": 0.016666666666666666,
+      "displayName": "Riftshadow Prism",
+      "shortName": "riftshadow_prism"
+     },
+     "1721": {
+      "wins": 0,
+      "count": 1,
+      "win_rate": 0,
+      "pick_rate": 0.016666666666666666,
+      "displayName": "Flayer's Bota",
+      "shortName": "flayers_bota"
+     },
+     "1862": {
+      "wins": 2,
+      "count": 4,
+      "win_rate": 0.5,
+      "pick_rate": 0.06666666666666667,
+      "displayName": "Enchanter's Bauble",
+      "shortName": "enchanters_bauble"
+     }
+    }
+   },
+   "items_mid_late": [
+    {
+     "pr": 0.9471608832807572,
+     "key": "252::1",
+     "wins": 0,
+     "count": 2402,
+     "rel_pr": 0.9482418016594232,
+     "win_rate": 0.5341382181515404,
+     "rel_count": 2400,
+     "avg_minute": 14.810574521232306,
+     "std_minute": 2.065014410576123,
+     "raw_item_id": 252,
+     "rel_num_matches": 2531
+    },
+    {
+     "pr": 0.8935331230283912,
+     "key": "1::1",
+     "wins": 0,
+     "count": 2266,
+     "rel_pr": 0.9033293221018852,
+     "win_rate": 0.5414827890556045,
+     "rel_count": 2252,
+     "avg_minute": 18.189320388349515,
+     "std_minute": 3.2513003409497627,
+     "raw_item_id": 1,
+     "rel_num_matches": 2493
+    },
+    {
+     "pr": 0.07097791798107256,
+     "key": "154::1",
+     "wins": 0,
+     "count": 180,
+     "rel_pr": 0.07186187587494167,
+     "win_rate": 0.6444444444444445,
+     "rel_count": 154,
+     "avg_minute": 22.64444444444445,
+     "std_minute": 6.900581474872825,
+     "raw_item_id": 154,
+     "rel_num_matches": 2143
+    },
+    {
+     "pr": 0.819794952681388,
+     "key": "116::1",
+     "wins": 0,
+     "count": 2079,
+     "rel_pr": 0.8933092224231465,
+     "win_rate": 0.544973544973545,
+     "rel_count": 1976,
+     "avg_minute": 24.584896584896583,
+     "std_minute": 4.077576603046383,
+     "raw_item_id": 116,
+     "rel_num_matches": 2212
+    },
+    {
+     "pr": 0.7133280757097792,
+     "key": "141::1",
+     "wins": 0,
+     "count": 1809,
+     "rel_pr": 0.831140350877193,
+     "win_rate": 0.611387506909895,
+     "rel_count": 1516,
+     "avg_minute": 28.011608623548923,
+     "std_minute": 4.751582100660533,
+     "raw_item_id": 141,
+     "rel_num_matches": 1824
+    },
+    {
+     "pr": 0.05796529968454259,
+     "key": "108::1",
+     "wins": 0,
+     "count": 147,
+     "rel_pr": 0.07727272727272727,
+     "win_rate": 0.4965986394557823,
+     "rel_count": 102,
+     "avg_minute": 28.29251700680272,
+     "std_minute": 9.047276347660397,
+     "raw_item_id": 108,
+     "rel_num_matches": 1320
+    },
+    {
+     "pr": 0.597397476340694,
+     "key": "939::1",
+     "wins": 0,
+     "count": 1515,
+     "rel_pr": 0.7258064516129032,
+     "win_rate": 0.6396039603960396,
+     "rel_count": 1170,
+     "avg_minute": 28.96105610561056,
+     "std_minute": 5.78781594438637,
+     "raw_item_id": 939,
+     "rel_num_matches": 1612
+    },
+    {
+     "pr": 0.055205047318611984,
+     "key": "249::1",
+     "wins": 0,
+     "count": 140,
+     "rel_pr": 0.11608391608391608,
+     "win_rate": 0.55,
+     "rel_count": 83,
+     "avg_minute": 33.91428571428571,
+     "std_minute": 9.6135958147717,
+     "raw_item_id": 249,
+     "rel_num_matches": 715
+    },
+    {
+     "pr": 0.06269716088328076,
+     "key": "112::1",
+     "wins": 0,
+     "count": 159,
+     "rel_pr": 0.10533333333333332,
+     "win_rate": 0.7610062893081762,
+     "rel_count": 79,
+     "avg_minute": 35.17610062893082,
+     "std_minute": 7.894377101858754,
+     "raw_item_id": 112,
+     "rel_num_matches": 750
+    },
+    {
+     "pr": 0.24093059936908515,
+     "key": "135::1",
+     "wins": 0,
+     "count": 611,
+     "rel_pr": 0.4705882352941176,
+     "win_rate": 0.5073649754500819,
+     "rel_count": 368,
+     "avg_minute": 35.34533551554828,
+     "std_minute": 7.34113070379345,
+     "raw_item_id": 135,
+     "rel_num_matches": 782
+    },
+    {
+     "pr": 0.3221608832807571,
+     "key": "603::1",
+     "wins": 0,
+     "count": 817,
+     "rel_pr": 0.6318471337579618,
+     "win_rate": 0.6952264381884945,
+     "rel_count": 496,
+     "avg_minute": 36.97062423500612,
+     "std_minute": 5.673198707612746,
+     "raw_item_id": 603,
+     "rel_num_matches": 785
+    },
+    {
+     "pr": 0.3024447949526814,
+     "key": "156::1",
+     "wins": 0,
+     "count": 767,
+     "rel_pr": 0.5885634588563459,
+     "win_rate": 0.7066492829204694,
+     "rel_count": 422,
+     "avg_minute": 37.01434159061278,
+     "std_minute": 6.46571967804233,
+     "raw_item_id": 156,
+     "rel_num_matches": 717
+    },
+    {
+     "pr": 0.21293375394321767,
+     "key": "609::1",
+     "wins": 0,
+     "count": 540,
+     "rel_pr": 0.45364238410596025,
+     "win_rate": 0.65,
+     "rel_count": 274,
+     "avg_minute": 37.20925925925926,
+     "std_minute": 7.781192151794929,
+     "raw_item_id": 609,
+     "rel_num_matches": 604
+    },
+    {
+     "pr": 0.027996845425867507,
+     "key": "139::1",
+     "wins": 0,
+     "count": 71,
+     "rel_pr": 0.0721830985915493,
+     "win_rate": 0.676056338028169,
+     "rel_count": 41,
+     "avg_minute": 38.87323943661972,
+     "std_minute": 6.868851058085556,
+     "raw_item_id": 139,
+     "rel_num_matches": 568
+    },
+    {
+     "pr": 0.017350157728706624,
+     "key": "225::1",
+     "wins": 0,
+     "count": 44,
+     "rel_pr": 0.06666666666666667,
+     "win_rate": 0.5,
+     "rel_count": 24,
+     "avg_minute": 40.54545454545455,
+     "std_minute": 9.296760299486897,
+     "raw_item_id": 225,
+     "rel_num_matches": 360
+    },
+    {
+     "pr": 0.01774447949526814,
+     "key": "247::1",
+     "wins": 0,
+     "count": 45,
+     "rel_pr": 0.09574468085106384,
+     "win_rate": 0.6888888888888889,
+     "rel_count": 18,
+     "avg_minute": 43.62222222222222,
+     "std_minute": 10.873594701311754,
+     "raw_item_id": 247,
+     "rel_num_matches": 188
+    },
+    {
+     "pr": 0.00473186119873817,
+     "key": "220::1",
+     "wins": 0,
+     "count": 12,
+     "rel_pr": 0.08641975308641975,
+     "win_rate": 0.4166666666666667,
+     "rel_count": 7,
+     "avg_minute": 48.333333333333336,
+     "std_minute": 11.974509964457372,
+     "raw_item_id": 220,
+     "rel_num_matches": 81
+    },
+    {
+     "pr": 0.01222397476340694,
+     "key": "133::1",
+     "wins": 0,
+     "count": 31,
+     "rel_pr": 0.18571428571428572,
+     "win_rate": 0.3870967741935484,
+     "rel_count": 13,
+     "avg_minute": 48.61290322580645,
+     "std_minute": 13.287581928506173,
+     "raw_item_id": 133,
+     "rel_num_matches": 70
+    },
+    {
+     "pr": 0.005914826498422713,
+     "key": "110::1",
+     "wins": 0,
+     "count": 15,
+     "rel_pr": 0.2692307692307692,
+     "win_rate": 0.4,
+     "rel_count": 7,
+     "avg_minute": 58.8,
+     "std_minute": 9.987992791347018,
+     "raw_item_id": 110,
+     "rel_num_matches": 26
+    }
+   ],
+   "starting_items": [
+    {
+     "pr": 0.91,
+     "key": "44::1",
+     "count": 2304,
+     "raw_item_id": 44
+    },
+    {
+     "pr": 0.9,
+     "key": "11::1",
+     "count": 2270,
+     "raw_item_id": 11
+    },
+    {
+     "pr": 0.63,
+     "key": "34::1",
+     "count": 1593,
+     "raw_item_id": 34
+    },
+    {
+     "pr": 0.43,
+     "key": "16::2",
+     "count": 1086,
+     "raw_item_id": 16
+    },
+    {
+     "pr": 0.36,
+     "key": "13::1",
+     "count": 904,
+     "raw_item_id": 13
+    },
+    {
+     "pr": 0.3,
+     "key": "20::1",
+     "count": 768,
+     "raw_item_id": 20
+    },
+    {
+     "pr": 0.27,
+     "key": "237::1",
+     "count": 683,
+     "raw_item_id": 237
+    },
+    {
+     "pr": 0.24,
+     "key": "16::1",
+     "count": 613,
+     "raw_item_id": 16
+    },
+    {
+     "pr": 0.19,
+     "key": "16::3",
+     "count": 485,
+     "raw_item_id": 16
+    },
+    {
+     "pr": 0.11,
+     "key": "36::1",
+     "count": 286,
+     "raw_item_id": 36
+    },
+    {
+     "pr": 0.1,
+     "key": "13::2",
+     "count": 243,
+     "raw_item_id": 13
+    },
+    {
+     "pr": 0.02,
+     "key": "237::2",
+     "count": 45,
+     "raw_item_id": 237
+    },
+    {
+     "pr": 0.02,
+     "key": "14::1",
+     "count": 44,
+     "raw_item_id": 14
+    },
+    {
+     "pr": 0.02,
+     "key": "216::1",
+     "count": 41,
+     "raw_item_id": 216
+    },
+    {
+     "pr": 0.01,
+     "key": "73::1",
+     "count": 33,
+     "raw_item_id": 73
+    },
+    {
+     "pr": 0.01,
+     "key": "13::3",
+     "count": 26,
+     "raw_item_id": 13
+    },
+    {
+     "pr": 0.01,
+     "key": "42::1",
+     "count": 25,
+     "raw_item_id": 42
+    },
+    {
+     "pr": 0.01,
+     "key": "39::1",
+     "count": 13,
+     "raw_item_id": 39
+    },
+    {
+     "pr": 0,
+     "key": "20::2",
+     "count": 11,
+     "raw_item_id": 20
+    },
+    {
+     "pr": 0,
+     "key": "17::1",
+     "count": 8,
+     "raw_item_id": 17
+    },
+    {
+     "pr": 0,
+     "key": "16::4",
+     "count": 7,
+     "raw_item_id": 16
+    },
+    {
+     "pr": 0,
+     "key": "241::1",
+     "count": 7,
+     "raw_item_id": 241
+    },
+    {
+     "pr": 0,
+     "key": "1123::1",
+     "count": 5,
+     "raw_item_id": 1123
+    },
+    {
+     "pr": 0,
+     "key": "1575::1",
+     "count": 5,
+     "raw_item_id": 1575
+    },
+    {
+     "pr": 0,
+     "key": "75::1",
+     "count": 4,
+     "raw_item_id": 75
+    },
+    {
+     "pr": 0,
+     "key": "43::1",
+     "count": 4,
+     "raw_item_id": 43
+    },
+    {
+     "pr": 0,
+     "key": "13::4",
+     "count": 2,
+     "raw_item_id": 13
+    },
+    {
+     "pr": 0,
+     "key": "25::1",
+     "count": 2,
+     "raw_item_id": 25
+    },
+    {
+     "pr": 0,
+     "key": "218::1",
+     "count": 2,
+     "raw_item_id": 218
+    },
+    {
+     "pr": 0,
+     "key": "244::1",
+     "count": 2,
+     "raw_item_id": 244
+    },
+    {
+     "pr": 0,
+     "key": "12::1",
+     "count": 1,
+     "raw_item_id": 12
+    },
+    {
+     "pr": 0,
+     "key": "240::1",
+     "count": 1,
+     "raw_item_id": 240
+    },
+    {
+     "pr": 0,
+     "key": "29::1",
+     "count": 1,
+     "raw_item_id": 29
+    },
+    {
+     "pr": 0,
+     "key": "237::3",
+     "count": 1,
+     "raw_item_id": 237
+    },
+    {
+     "pr": 0,
+     "key": "11::2",
+     "count": 1,
+     "raw_item_id": 11
+    },
+    {
+     "pr": 0,
+     "key": "188::1",
+     "count": 1,
+     "raw_item_id": 188
+    },
+    {
+     "pr": 0,
+     "key": "44::2",
+     "count": 1,
+     "raw_item_id": 44
+    }
+   ],
+   "has_anchor_build": true,
+   "anchor_item_stats": {
+    "1": {
+     "pr": 100,
+     "wins": 423,
+     "win_rate": 0.638,
+     "purchases": 663,
+     "avg_minute": 17.9,
+     "max_minute": 46,
+     "min_minute": 12,
+     "std_minute": 2.8,
+     "purchase_rate": 0
+    },
+    "26": {
+     "pr": 100.1508,
+     "wins": 424,
+     "win_rate": 0.6386,
+     "purchases": 664,
+     "avg_minute": 8.6,
+     "max_minute": 51,
+     "min_minute": 3,
+     "std_minute": 4.7,
+     "purchase_rate": 0
+    },
+    "36": {
+     "pr": 100,
+     "wins": 423,
+     "win_rate": 0.638,
+     "purchases": 663,
+     "avg_minute": 3.3,
+     "max_minute": 33,
+     "min_minute": -2,
+     "std_minute": 4.4,
+     "purchase_rate": 0
+    },
+    "41": {
+     "pr": 0.7541,
+     "wins": 4,
+     "win_rate": 0.8,
+     "purchases": 5,
+     "avg_minute": 35.6,
+     "max_minute": 50,
+     "min_minute": 22,
+     "std_minute": 12.2,
+     "purchase_rate": 0
+    },
+    "48": {
+     "pr": 1.6591,
+     "wins": 7,
+     "win_rate": 0.6364,
+     "purchases": 11,
+     "avg_minute": 47.5,
+     "max_minute": 71,
+     "min_minute": 34,
+     "std_minute": 10.1,
+     "purchase_rate": 0
+    },
+    "63": {
+     "pr": 100,
+     "wins": 423,
+     "win_rate": 0.638,
+     "purchases": 663,
+     "avg_minute": 5.9,
+     "max_minute": 20,
+     "min_minute": 3,
+     "std_minute": 1.7,
+     "purchase_rate": 0
+    },
+    "65": {
+     "pr": 0.3017,
+     "wins": 0,
+     "win_rate": 0,
+     "purchases": 2,
+     "avg_minute": 12,
+     "max_minute": 12,
+     "min_minute": 12,
+     "std_minute": 0,
+     "purchase_rate": 0
+    },
+    "73": {
+     "pr": 29.7134,
+     "wins": 125,
+     "win_rate": 0.6345,
+     "purchases": 197,
+     "avg_minute": 2.3,
+     "max_minute": 15,
+     "min_minute": -1,
+     "std_minute": 1.5,
+     "purchase_rate": 0
+    },
+    "75": {
+     "pr": 1.2066,
+     "wins": 4,
+     "win_rate": 0.5,
+     "purchases": 8,
+     "avg_minute": 2.5,
+     "max_minute": 4,
+     "min_minute": 1,
+     "std_minute": 1.1,
+     "purchase_rate": 0
+    },
+    "90": {
+     "pr": 0.1508,
+     "wins": 0,
+     "win_rate": 0,
+     "purchases": 1,
+     "avg_minute": 33,
+     "max_minute": 33,
+     "min_minute": 33,
+     "std_minute": 0,
+     "purchase_rate": 0
+    },
+    "96": {
+     "pr": 0.1508,
+     "wins": 1,
+     "win_rate": 1,
+     "purchases": 1,
+     "avg_minute": 50,
+     "max_minute": 50,
+     "min_minute": 50,
+     "std_minute": 0,
+     "purchase_rate": 0
+    },
+    "98": {
+     "pr": 1.0558,
+     "wins": 3,
+     "win_rate": 0.4286,
+     "purchases": 7,
+     "avg_minute": 34.6,
+     "max_minute": 43,
+     "min_minute": 21,
+     "std_minute": 8.6,
+     "purchase_rate": 0
+    },
+    "108": {
+     "pr": 3.4691,
+     "wins": 11,
+     "win_rate": 0.4783,
+     "purchases": 23,
+     "avg_minute": 36.5,
+     "max_minute": 49,
+     "min_minute": 18,
+     "std_minute": 8.3,
+     "purchase_rate": 0
+    },
+    "110": {
+     "pr": 0.4525,
+     "wins": 0,
+     "win_rate": 0,
+     "purchases": 3,
+     "avg_minute": 56.7,
+     "max_minute": 66,
+     "min_minute": 49,
+     "std_minute": 7,
+     "purchase_rate": 0
+    },
+    "112": {
+     "pr": 4.9774,
+     "wins": 23,
+     "win_rate": 0.697,
+     "purchases": 33,
+     "avg_minute": 41.6,
+     "max_minute": 69,
+     "min_minute": 28,
+     "std_minute": 9.6,
+     "purchase_rate": 0
+    },
+    "114": {
+     "pr": 0.1508,
+     "wins": 0,
+     "win_rate": 0,
+     "purchases": 1,
+     "avg_minute": 33,
+     "max_minute": 33,
+     "min_minute": 33,
+     "std_minute": 0,
+     "purchase_rate": 0
+    },
+    "116": {
+     "pr": 100,
+     "wins": 423,
+     "win_rate": 0.638,
+     "purchases": 663,
+     "avg_minute": 24,
+     "max_minute": 53,
+     "min_minute": 16,
+     "std_minute": 3.6,
+     "purchase_rate": 0
+    },
+    "123": {
+     "pr": 0.7541,
+     "wins": 3,
+     "win_rate": 0.6,
+     "purchases": 5,
+     "avg_minute": 34.4,
+     "max_minute": 39,
+     "min_minute": 30,
+     "std_minute": 3.5,
+     "purchase_rate": 0
+    },
+    "133": {
+     "pr": 1.6591,
+     "wins": 3,
+     "win_rate": 0.2727,
+     "purchases": 11,
+     "avg_minute": 45.8,
+     "max_minute": 63,
+     "min_minute": 32,
+     "std_minute": 9.8,
+     "purchase_rate": 0
+    },
+    "135": {
+     "pr": 26.0935,
+     "wins": 95,
+     "win_rate": 0.5491,
+     "purchases": 173,
+     "avg_minute": 38.8,
+     "max_minute": 66,
+     "min_minute": 26,
+     "std_minute": 7.2,
+     "purchase_rate": 0
+    },
+    "139": {
+     "pr": 1.9608,
+     "wins": 8,
+     "win_rate": 0.6154,
+     "purchases": 13,
+     "avg_minute": 42.8,
+     "max_minute": 56,
+     "min_minute": 30,
+     "std_minute": 7.2,
+     "purchase_rate": 0
+    },
+    "141": {
+     "pr": 100.1508,
+     "wins": 424,
+     "win_rate": 0.6386,
+     "purchases": 664,
+     "avg_minute": 28.2,
+     "max_minute": 53,
+     "min_minute": 20,
+     "std_minute": 4.3,
+     "purchase_rate": 0
+    },
+    "143": {
+     "pr": 0.4525,
+     "wins": 3,
+     "win_rate": 1,
+     "purchases": 3,
+     "avg_minute": 34,
+     "max_minute": 36,
+     "min_minute": 30,
+     "std_minute": 2.8,
+     "purchase_rate": 0
+    },
+    "149": {
+     "pr": 100,
+     "wins": 423,
+     "win_rate": 0.638,
+     "purchases": 663,
+     "avg_minute": 23.9,
+     "max_minute": 52,
+     "min_minute": 12,
+     "std_minute": 4.3,
+     "purchase_rate": 0
+    },
+    "152": {
+     "pr": 2.5641,
+     "wins": 12,
+     "win_rate": 0.7059,
+     "purchases": 17,
+     "avg_minute": 37.7,
+     "max_minute": 57,
+     "min_minute": 17,
+     "std_minute": 9.4,
+     "purchase_rate": 0
+    },
+    "154": {
+     "pr": 1.0558,
+     "wins": 4,
+     "win_rate": 0.5714,
+     "purchases": 7,
+     "avg_minute": 32.6,
+     "max_minute": 52,
+     "min_minute": 20,
+     "std_minute": 10,
+     "purchase_rate": 0
+    },
+    "156": {
+     "pr": 43.5897,
+     "wins": 201,
+     "win_rate": 0.6955,
+     "purchases": 289,
+     "avg_minute": 37.8,
+     "max_minute": 66,
+     "min_minute": 29,
+     "std_minute": 5.9,
+     "purchase_rate": 0
+    },
+    "162": {
+     "pr": 0.1508,
+     "wins": 1,
+     "win_rate": 1,
+     "purchases": 1,
+     "avg_minute": 32,
+     "max_minute": 32,
+     "min_minute": 32,
+     "std_minute": 0,
+     "purchase_rate": 0
+    },
+    "168": {
+     "pr": 0.3017,
+     "wins": 1,
+     "win_rate": 0.5,
+     "purchases": 2,
+     "avg_minute": 45.5,
+     "max_minute": 49,
+     "min_minute": 42,
+     "std_minute": 3.5,
+     "purchase_rate": 0
+    },
+    "170": {
+     "pr": 0.3017,
+     "wins": 1,
+     "win_rate": 0.5,
+     "purchases": 2,
+     "avg_minute": 15,
+     "max_minute": 18,
+     "min_minute": 12,
+     "std_minute": 3,
+     "purchase_rate": 0
+    },
+    "172": {
+     "pr": 100,
+     "wins": 423,
+     "win_rate": 0.638,
+     "purchases": 663,
+     "avg_minute": 10,
+     "max_minute": 16,
+     "min_minute": 6,
+     "std_minute": 1.4,
+     "purchase_rate": 0
+    },
+    "174": {
+     "pr": 0.1508,
+     "wins": 0,
+     "win_rate": 0,
+     "purchases": 1,
+     "avg_minute": 57,
+     "max_minute": 57,
+     "min_minute": 57,
+     "std_minute": 0,
+     "purchase_rate": 0
+    },
+    "178": {
+     "pr": 0.6033,
+     "wins": 2,
+     "win_rate": 0.5,
+     "purchases": 4,
+     "avg_minute": 10.2,
+     "max_minute": 18,
+     "min_minute": 3,
+     "std_minute": 6.4,
+     "purchase_rate": 0
+    },
+    "180": {
+     "pr": 0.1508,
+     "wins": 1,
+     "win_rate": 1,
+     "purchases": 1,
+     "avg_minute": 15,
+     "max_minute": 15,
+     "min_minute": 15,
+     "std_minute": 0,
+     "purchase_rate": 0
+    },
+    "208": {
+     "pr": 0.4525,
+     "wins": 2,
+     "win_rate": 0.6667,
+     "purchases": 3,
+     "avg_minute": 37.3,
+     "max_minute": 40,
+     "min_minute": 33,
+     "std_minute": 3.1,
+     "purchase_rate": 0
+    },
+    "214": {
+     "pr": 0.1508,
+     "wins": 0,
+     "win_rate": 0,
+     "purchases": 1,
+     "avg_minute": 40,
+     "max_minute": 40,
+     "min_minute": 40,
+     "std_minute": 0,
+     "purchase_rate": 0
+    },
+    "220": {
+     "pr": 1.0558,
+     "wins": 4,
+     "win_rate": 0.5714,
+     "purchases": 7,
+     "avg_minute": 48.4,
+     "max_minute": 66,
+     "min_minute": 36,
+     "std_minute": 10.1,
+     "purchase_rate": 0
+    },
+    "225": {
+     "pr": 3.0166,
+     "wins": 9,
+     "win_rate": 0.45,
+     "purchases": 20,
+     "avg_minute": 42.1,
+     "max_minute": 59,
+     "min_minute": 27,
+     "std_minute": 8.9,
+     "purchase_rate": 0
+    },
+    "247": {
+     "pr": 1.81,
+     "wins": 9,
+     "win_rate": 0.75,
+     "purchases": 12,
+     "avg_minute": 48.8,
+     "max_minute": 74,
+     "min_minute": 36,
+     "std_minute": 10.5,
+     "purchase_rate": 0
+    },
+    "249": {
+     "pr": 3.4691,
+     "wins": 13,
+     "win_rate": 0.5652,
+     "purchases": 23,
+     "avg_minute": 40.9,
+     "max_minute": 62,
+     "min_minute": 25,
+     "std_minute": 9.4,
+     "purchase_rate": 0
+    },
+    "250": {
+     "pr": 1.6591,
+     "wins": 6,
+     "win_rate": 0.5455,
+     "purchases": 11,
+     "avg_minute": 38.1,
+     "max_minute": 48,
+     "min_minute": 27,
+     "std_minute": 6.4,
+     "purchase_rate": 0
+    },
+    "252": {
+     "pr": 100,
+     "wins": 423,
+     "win_rate": 0.638,
+     "purchases": 663,
+     "avg_minute": 14.7,
+     "max_minute": 35,
+     "min_minute": 9,
+     "std_minute": 2,
+     "purchase_rate": 0
+    },
+    "254": {
+     "pr": 0.1508,
+     "wins": 0,
+     "win_rate": 0,
+     "purchases": 1,
+     "avg_minute": 40,
+     "max_minute": 40,
+     "min_minute": 40,
+     "std_minute": 0,
+     "purchase_rate": 0
+    },
+    "277": {
+     "pr": 0.1508,
+     "wins": 1,
+     "win_rate": 1,
+     "purchases": 1,
+     "avg_minute": 48,
+     "max_minute": 48,
+     "min_minute": 48,
+     "std_minute": 0,
+     "purchase_rate": 0
+    },
+    "600": {
+     "pr": 1.5083,
+     "wins": 7,
+     "win_rate": 0.7,
+     "purchases": 10,
+     "avg_minute": 36.5,
+     "max_minute": 46,
+     "min_minute": 29,
+     "std_minute": 5.4,
+     "purchase_rate": 0
+    },
+    "603": {
+     "pr": 52.187,
+     "wins": 240,
+     "win_rate": 0.6936,
+     "purchases": 346,
+     "avg_minute": 37.3,
+     "max_minute": 56,
+     "min_minute": 27,
+     "std_minute": 5.5,
+     "purchase_rate": 0
+    },
+    "609": {
+     "pr": 33.1825,
+     "wins": 151,
+     "win_rate": 0.6864,
+     "purchases": 220,
+     "avg_minute": 37.2,
+     "max_minute": 61,
+     "min_minute": 23,
+     "std_minute": 7.6,
+     "purchase_rate": 0
+    },
+    "610": {
+     "pr": 0.1508,
+     "wins": 1,
+     "win_rate": 1,
+     "purchases": 1,
+     "avg_minute": 46,
+     "max_minute": 46,
+     "min_minute": 46,
+     "std_minute": 0,
+     "purchase_rate": 0
+    },
+    "939": {
+     "pr": 100,
+     "wins": 423,
+     "win_rate": 0.638,
+     "purchases": 663,
+     "avg_minute": 29.7,
+     "max_minute": 52,
+     "min_minute": 15,
+     "std_minute": 5,
+     "purchase_rate": 0
+    },
+    "1097": {
+     "pr": 0.4525,
+     "wins": 1,
+     "win_rate": 0.3333,
+     "purchases": 3,
+     "avg_minute": 46,
+     "max_minute": 58,
+     "min_minute": 40,
+     "std_minute": 8.5,
+     "purchase_rate": 0
+    }
+   },
+   "enhancement_stats": {
+    "0": {
+     "1577": {
+      "wins": 228,
+      "count": 418,
+      "win_rate": 0.5454545454545454,
+      "pick_rate": 0.16489151873767258
+     },
+     "1585": {
+      "wins": 104,
+      "count": 210,
+      "win_rate": 0.49523809523809526,
+      "pick_rate": 0.08284023668639054
+     },
+     "1586": {
+      "wins": 876,
+      "count": 1659,
+      "win_rate": 0.5280289330922242,
+      "pick_rate": 0.6544378698224852
+     },
+     "1865": {
+      "wins": 124,
+      "count": 248,
+      "win_rate": 0.5,
+      "pick_rate": 0.09783037475345167
+     }
+    },
+    "1": {
+     "1577": {
+      "wins": 159,
+      "count": 273,
+      "win_rate": 0.5824175824175825,
+      "pick_rate": 0.1087216248506571
+     },
+     "1585": {
+      "wins": 56,
+      "count": 117,
+      "win_rate": 0.47863247863247865,
+      "pick_rate": 0.04659498207885305
+     },
+     "1586": {
+      "wins": 948,
+      "count": 1826,
+      "win_rate": 0.5191675794085433,
+      "pick_rate": 0.727200318598168
+     },
+     "1589": {
+      "wins": 152,
+      "count": 287,
+      "win_rate": 0.5296167247386759,
+      "pick_rate": 0.11429709279171645
+     },
+     "1593": {
+      "wins": 6,
+      "count": 8,
+      "win_rate": 0.75,
+      "pick_rate": 0.0031859816806053365
+     }
+    },
+    "2": {
+     "1577": {
+      "wins": 78,
+      "count": 142,
+      "win_rate": 0.5492957746478874,
+      "pick_rate": 0.06574074074074074
+     },
+     "1585": {
+      "wins": 42,
+      "count": 84,
+      "win_rate": 0.5,
+      "pick_rate": 0.03888888888888889
+     },
+     "1586": {
+      "wins": 843,
+      "count": 1610,
+      "win_rate": 0.5236024844720497,
+      "pick_rate": 0.7453703703703703
+     },
+     "1589": {
+      "wins": 172,
+      "count": 320,
+      "win_rate": 0.5375,
+      "pick_rate": 0.14814814814814814
+     },
+     "1593": {
+      "wins": 3,
+      "count": 4,
+      "win_rate": 0.75,
+      "pick_rate": 0.001851851851851852
+     }
+    },
+    "3": {
+     "1577": {
+      "wins": 95,
+      "count": 174,
+      "win_rate": 0.5459770114942529,
+      "pick_rate": 0.15130434782608695
+     },
+     "1585": {
+      "wins": 34,
+      "count": 72,
+      "win_rate": 0.4722222222222222,
+      "pick_rate": 0.06260869565217392
+     },
+     "1586": {
+      "wins": 360,
+      "count": 700,
+      "win_rate": 0.5142857142857142,
+      "pick_rate": 0.6086956521739131
+     },
+     "1589": {
+      "wins": 110,
+      "count": 199,
+      "win_rate": 0.5527638190954773,
+      "pick_rate": 0.17304347826086958
+     },
+     "1592": {
+      "wins": 3,
+      "count": 5,
+      "win_rate": 0.6,
+      "pick_rate": 0.004347826086956522
+     }
+    },
+    "4": {
+     "1588": {
+      "wins": 8,
+      "count": 16,
+      "win_rate": 0.5,
+      "pick_rate": 0.26666666666666666
+     },
+     "1594": {
+      "wins": 1,
+      "count": 3,
+      "win_rate": 0.3333333333333333,
+      "pick_rate": 0.05
+     },
+     "1596": {
+      "wins": 19,
+      "count": 41,
+      "win_rate": 0.4634146341463415,
+      "pick_rate": 0.6833333333333333
+     }
+    }
+   },
+   "anchor_start_items": [
+    [
+     [
+      11,
+      16,
+      16,
+      16,
+      34,
+      44
+     ],
+     159
+    ],
+    [
+     [
+      11,
+      16,
+      16,
+      34,
+      44,
+      237
+     ],
+     107
+    ],
+    [
+     [
+      11,
+      13,
+      16,
+      16,
+      20,
+      44
+     ],
+     74
+    ]
+   ],
+   "starting_items_new": [
+    [
+     [
+      11,
+      16,
+      16,
+      16,
+      34,
+      44
+     ],
+     {
+      "count": 409,
+      "win_rate": 0.5525672371638142
+     }
+    ],
+    [
+     [
+      11,
+      13,
+      16,
+      16,
+      20,
+      44
+     ],
+     {
+      "count": 340,
+      "win_rate": 0.4941176470588235
+     }
+    ],
+    [
+     [
+      11,
+      16,
+      16,
+      34,
+      44,
+      237
+     ],
+     {
+      "count": 337,
+      "win_rate": 0.5192878338278932
+     }
+    ]
+   ],
+   "anchor_build_matches": [
+    {
+     "imp": 0,
+     "mmr": 7280,
+     "kills": 13,
+     "deaths": 10,
+     "minute": 1,
+     "player": {
+      "name": "Smurf-",
+      "is_pro": null,
+      "twitch": null,
+      "est_mmr": 7266,
+      "account_id": 1592305295
+     },
+     "assists": 11,
+     "hero_id": 18,
+     "duration": 2380,
+     "match_id": 8837565133,
+     "position": "pos 1",
+     "inventory": [
+      63,
+      172,
+      1,
+      939,
+      141,
+      116
+     ]
+    },
+    {
+     "imp": 0,
+     "mmr": 7120,
+     "kills": 18,
+     "deaths": 9,
+     "minute": 2,
+     "player": {
+      "name": "\u53cd\u6d3e",
+      "is_pro": null,
+      "twitch": null,
+      "est_mmr": 7116,
+      "account_id": 217743877
+     },
+     "assists": 14,
+     "hero_id": 18,
+     "duration": 2825,
+     "match_id": 8837622538,
+     "position": "pos 1",
+     "inventory": [
+      116,
+      939,
+      141,
+      156,
+      603
+     ]
+    },
+    {
+     "imp": 0,
+     "mmr": 7336,
+     "kills": 25,
+     "deaths": 5,
+     "minute": 2,
+     "player": {
+      "name": "loser",
+      "is_pro": 0,
+      "twitch": "",
+      "est_mmr": 7251,
+      "account_id": 341878377
+     },
+     "assists": 6,
+     "hero_id": 18,
+     "duration": 2223,
+     "match_id": 8837639760,
+     "position": "pos 1",
+     "inventory": [
+      141,
+      939,
+      603,
+      112,
+      156,
+      247
+     ]
+    },
+    {
+     "imp": 0,
+     "mmr": 7161,
+     "kills": 12,
+     "deaths": 8,
+     "minute": -2,
+     "player": {
+      "name": "PRADOOOOO",
+      "is_pro": 0,
+      "twitch": "",
+      "est_mmr": 7317,
+      "account_id": 927549607
+     },
+     "assists": 7,
+     "hero_id": 18,
+     "duration": 2635,
+     "match_id": 8837641391,
+     "position": "pos 1",
+     "inventory": [
+      172,
+      1,
+      141,
+      116,
+      939,
+      112
+     ]
+    },
+    {
+     "imp": 0,
+     "mmr": 7139,
+     "kills": 9,
+     "deaths": 6,
+     "minute": 1,
+     "player": {
+      "name": "BYTE",
+      "is_pro": null,
+      "twitch": null,
+      "est_mmr": 7143,
+      "account_id": 155525998
+     },
+     "assists": 5,
+     "hero_id": 18,
+     "duration": 2190,
+     "match_id": 8837642630,
+     "position": "pos 1",
+     "inventory": [
+      172,
+      63,
+      1,
+      939,
+      116,
+      141
+     ]
+    },
+    {
+     "imp": 0,
+     "mmr": 7375,
+     "kills": 8,
+     "deaths": 5,
+     "minute": 3,
+     "player": {
+      "name": "YoU NastY",
+      "is_pro": 0,
+      "twitch": "",
+      "est_mmr": 7433,
+      "account_id": 176695557
+     },
+     "assists": 8,
+     "hero_id": 18,
+     "duration": 2146,
+     "match_id": 8837665114,
+     "position": "pos 1",
+     "inventory": [
+      63,
+      172,
+      1,
+      116,
+      141,
+      939
+     ]
+    },
+    {
+     "imp": 0,
+     "mmr": 7177,
+     "kills": 22,
+     "deaths": 6,
+     "minute": 2,
+     "player": {
+      "name": "\u042f \u041c\u0430\u043a\u0441\u0438\u043c #\u0440\u0430\u0434\u0438\u043d\u0435\u0451",
+      "is_pro": null,
+      "twitch": null,
+      "est_mmr": -1,
+      "account_id": 1199282005
+     },
+     "assists": 10,
+     "hero_id": 18,
+     "duration": 2718,
+     "match_id": 8837666031,
+     "position": "pos 1",
+     "inventory": [
+      63,
+      116,
+      141,
+      939,
+      603,
+      156
+     ]
+    },
+    {
+     "imp": 0,
+     "mmr": 7140,
+     "kills": 17,
+     "deaths": 6,
+     "minute": 1,
+     "player": {
+      "name": "MediasRotas",
+      "is_pro": null,
+      "twitch": null,
+      "est_mmr": 7140,
+      "account_id": 1109074599
+     },
+     "assists": 10,
+     "hero_id": 18,
+     "duration": 2646,
+     "match_id": 8837782808,
+     "position": "pos 1",
+     "inventory": [
+      1,
+      116,
+      141,
+      939,
+      112,
+      156
+     ]
+    },
+    {
+     "imp": 0,
+     "mmr": 7285,
+     "kills": 9,
+     "deaths": 4,
+     "minute": 2,
+     "player": {
+      "name": "zetazetazeta",
+      "is_pro": 0,
+      "twitch": "",
+      "est_mmr": 7296,
+      "account_id": 230377602
+     },
+     "assists": 1,
+     "hero_id": 18,
+     "duration": 2512,
+     "match_id": 8837785757,
+     "position": "pos 1",
+     "inventory": [
+      63,
+      1,
+      116,
+      141,
+      939,
+      156
+     ]
+    },
+    {
+     "imp": 0,
+     "mmr": 7248,
+     "kills": 15,
+     "deaths": 3,
+     "minute": 2,
+     "player": {
+      "name": "jjkfavor^^",
+      "is_pro": null,
+      "twitch": null,
+      "est_mmr": -1,
+      "account_id": 1011803855
+     },
+     "assists": 7,
+     "hero_id": 18,
+     "duration": 2591,
+     "match_id": 8837810171,
+     "position": "pos 1",
+     "inventory": [
+      116,
+      141,
+      939,
+      208,
+      603,
+      156
+     ]
+    }
+   ],
+   "anchor_start_items_new": [
+    [
+     [
+      11,
+      16,
+      16,
+      16,
+      34,
+      44
+     ],
+     {
+      "count": 159,
+      "win_rate": 0.6729559748427673
+     }
+    ],
+    [
+     [
+      11,
+      16,
+      16,
+      34,
+      44,
+      237
+     ],
+     {
+      "count": 107,
+      "win_rate": 0.6542056074766355
+     }
+    ],
+    [
+     [
+      11,
+      13,
+      16,
+      16,
+      20,
+      44
+     ],
+     {
+      "count": 74,
+      "win_rate": 0.6486486486486487
+     }
+    ]
+   ],
+   "anchor_lategame_inventories": {
+    "30+": [
+     1,
+     63,
+     116,
+     141,
+     172,
+     939
+    ],
+    "45+": [
+     63,
+     116,
+     141,
+     156,
+     603,
+     939
+    ],
+    "55+": [
+     116,
+     135,
+     141,
+     156,
+     603,
+     939
+    ]
+   }
+  },
+  "updated_at": "2026-06-17T22:43:58",
+  "source": "pubs",
+  "win_rate": 0.5252365930599369
+ }
+]

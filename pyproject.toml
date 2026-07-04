@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "d2pt-guides"
+version = "0.1.0"
+description = "Generate Dota 2 in-game hero guides from Dota2ProTracker's most played builds"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+d2pt-guides = "d2pt_guides.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["d2pt_guides*"]

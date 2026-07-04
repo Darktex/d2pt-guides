@@ -1,0 +1,138 @@
+"guidedata"
+{
+	"Hero"		"sven"
+	"Title"		"D2PT Sven Carry · 53% WR"
+	"Role"		"#DOTA_HeroGuide_Role_Core"
+	"GameplayVersion"		"7.40c"
+	"Overview"		"Sven — Carry (pos 1)
+Auto-generated from Dota2ProTracker: most played build in 7000+ MMR pub games (last ~8 days).
+2536 matches · 53% win rate
+
+Item categories: CORE items are bought in >=50% of games and listed in typical purchase order. SITUATIONAL items are the lower-frequency alternatives — hover them for pick rate, win rate and average timing before committing.
+Talent tooltips compare both options' pick and win rates.
+
+Source: https://dota2protracker.com/hero/Sven
+Data updated: 2026-06-17
+
+Alternative skill order (10% of games, 49% WR): Storm Hammer, Warcry, Great Cleave, Great Cleave, Great Cleave, God's Strength..."
+	"GuideRevision"		"1"
+	"AssociatedWorkshopItemID"		"0x0000000000000000"
+	"OriginalCreatorID"		"0x0000000000000000"
+	"GuideFormatVersion"		"2"
+	"TimeUpdated"		"0x000000006A498CFA"
+	"TimePublished"		"0x0000000000000000"
+	"ItemBuild"
+	{
+		"Items"
+		{
+			"#DOTA_Item_Build_Starting_Items"
+			{
+				"item"		"item_quelling_blade"
+				"item"		"item_branches"
+				"item"		"item_branches"
+				"item"		"item_branches"
+				"item"		"item_magic_stick"
+				"item"		"item_tango"
+			}
+			"Early Game (0-12 min)"
+			{
+				"item"		"item_magic_wand"
+				"item"		"item_power_treads"
+				"item"		"item_lifesteal"
+				"item"		"item_mask_of_madness"
+			}
+			"Mid Game (12-35 min)"
+			{
+				"item"		"item_echo_sabre"
+				"item"		"item_blink"
+				"item"		"item_lesser_crit"
+				"item"		"item_black_king_bar"
+				"item"		"item_greater_crit"
+				"item"		"item_harpoon"
+			}
+			"Late Game — Situational"
+			{
+				"item"		"item_swift_blink"
+				"item"		"item_satanic"
+				"item"		"item_monkey_king_bar"
+				"item"		"item_aghanims_shard"
+			}
+			"Top Neutral Items"
+			{
+				"item"		"item_possessed_mask"
+				"item"		"item_duelist_gloves"
+				"item"		"item_defiant_shell"
+				"item"		"item_poor_mans_shield"
+				"item"		"item_serrated_shiv"
+				"item"		"item_gunpowder_gauntlets"
+				"item"		"item_giant_maul"
+				"item"		"item_flayers_bota"
+				"item"		"item_divine_regalia"
+				"item"		"item_desolator_2"
+			}
+		}
+		"ItemTooltips"
+		{
+			"item_tango"		"In 91% of starting inventories."
+			"item_quelling_blade"		"In 90% of starting inventories."
+			"item_magic_stick"		"In 63% of starting inventories."
+			"item_branches"		"In 43% of starting inventories."
+			"item_magic_wand"		"CORE · bought in 66% of matches · 53% WR · avg 3 min."
+			"item_power_treads"		"CORE · bought in 98% of matches · 52% WR · avg 6 min."
+			"item_lifesteal"		"CORE · bought in 90% of matches · 53% WR · avg 9 min."
+			"item_mask_of_madness"		"CORE · bought in 97% of matches · 52% WR · avg 10 min."
+			"item_echo_sabre"		"CORE · bought in 95% of matches · 53% WR · avg 15 min."
+			"item_blink"		"CORE · bought in 89% of matches · 54% WR · avg 18 min."
+			"item_lesser_crit"		"CORE · bought in 78% of matches · 57% WR · avg 24 min."
+			"item_black_king_bar"		"CORE · bought in 82% of matches · 54% WR · avg 25 min."
+			"item_greater_crit"		"CORE · bought in 71% of matches · 61% WR · avg 28 min."
+			"item_harpoon"		"CORE · bought in 60% of matches · 64% WR · avg 29 min."
+			"item_swift_blink"		"SITUATIONAL · bought in 32% of matches · 70% WR · avg 37 min."
+			"item_satanic"		"SITUATIONAL · bought in 30% of matches · 71% WR · avg 37 min."
+			"item_monkey_king_bar"		"SITUATIONAL · bought in 24% of matches · 51% WR · avg 35 min."
+			"item_aghanims_shard"		"SITUATIONAL · bought in 21% of matches · 65% WR · avg 37 min."
+			"item_possessed_mask"		"Tier 1 neutral · picked 21% · 50% WR."
+			"item_duelist_gloves"		"Tier 1 neutral · picked 17% · 56% WR."
+			"item_defiant_shell"		"Tier 2 neutral · picked 29% · 52% WR."
+			"item_poor_mans_shield"		"Tier 2 neutral · picked 12% · 48% WR."
+			"item_serrated_shiv"		"Tier 3 neutral · picked 30% · 52% WR."
+			"item_gunpowder_gauntlets"		"Tier 3 neutral · picked 29% · 54% WR."
+			"item_giant_maul"		"Tier 4 neutral · picked 35% · 54% WR."
+			"item_flayers_bota"		"Tier 4 neutral · picked 22% · 50% WR."
+			"item_divine_regalia"		"Tier 5 neutral · picked 27% · 25% WR."
+			"item_desolator_2"		"Tier 5 neutral · picked 20% · 50% WR."
+		}
+	}
+	"AbilityBuild"
+	{
+		"AbilityOrder"
+		{
+			"1"		"sven_storm_bolt"
+			"2"		"sven_warcry"
+			"3"		"sven_great_cleave"
+			"4"		"sven_great_cleave"
+			"5"		"sven_great_cleave"
+			"6"		"sven_gods_strength"
+			"7"		"sven_great_cleave"
+			"8"		"sven_storm_bolt"
+			"9"		"sven_storm_bolt"
+			"10"		"special_bonus_unique_sven_5"
+			"11"		"sven_storm_bolt"
+			"12"		"sven_gods_strength"
+			"13"		"sven_warcry"
+			"14"		"sven_warcry"
+			"15"		"special_bonus_unique_sven_3"
+			"16"		"sven_warcry"
+			"18"		"sven_gods_strength"
+			"20"		"special_bonus_unique_sven_7"
+			"25"		"special_bonus_unique_sven_2"
+		}
+		"AbilityTooltips"
+		{
+			"special_bonus_unique_sven_5"		"Picked 55% · 54% WR. Alternative: +20% God's Strength Slow Resistance (45% picked, 51% WR)."
+			"special_bonus_unique_sven_3"		"Picked 69% · 54% WR. Alternative: +25% Great Cleave Damage (31% picked, 53% WR)."
+			"special_bonus_unique_sven_7"		"Picked 69% · 56% WR. Alternative: -25% Storm Hammer Cooldown and Mana Cost (31% picked, 60% WR)."
+			"special_bonus_unique_sven_2"		"Picked 88% · 60% WR. Alternative: +1s Storm Hammer Stun Duration (12% picked, 61% WR)."
+		}
+	}
+}

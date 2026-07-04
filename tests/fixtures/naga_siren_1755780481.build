@@ -1,0 +1,98 @@
+"guidedata"
+{
+	"Hero"		"naga_siren"
+	"Title"		"MAKE NAGA GREAT AGAIN"
+	"GameplayVersion"		"7.40c"
+	"Overview"		""
+	"GuideRevision"		"4"
+	"AssociatedWorkshopItemID"		"0x0000000000000000"
+	"OriginalCreatorID"		"0x00000000382F8487"
+	"GuideFormatVersion"		"2"
+	"TimeUpdated"		"0x0000000069806A73"
+	"TimePublished"		"0x0000000000000000"
+	"ItemBuild"
+	{
+		"Items"
+		{
+			"#DOTA_Item_Build_Starting_Items"
+			{
+				"item"		"item_quelling_blade"
+				"item"		"item_blight_stone"
+				"item"		"item_branches"
+				"item"		"item_branches"
+				"item"		"item_tango"
+			}
+			"#DOTA_Item_Build_Early_Game"
+			{
+				"item"		"item_magic_wand"
+				"item"		"item_power_treads"
+				"item"		"item_radiance"
+				"item"		"item_travel_boots"
+				"item"		"item_manta"
+				"item"		"item_butterfly"
+			}
+			"#DOTA_Item_Build_Core_Items"
+			{
+				"item"		"item_heart"
+				"item"		"item_butterfly"
+				"item"		"item_travel_boots_2"
+			}
+			"#DOTA_Item_Build_Luxury"
+			{
+				"item"		"item_bloodthorn"
+				"item"		"item_diffusal_blade"
+				"item"		"item_disperser"
+				"item"		"item_monkey_king_bar"
+				"item"		"item_greater_crit"
+				"item"		"item_satanic"
+				"item"		"item_nullifier"
+				"item"		"item_ultimate_scepter"
+				"item"		"item_aghanims_shard"
+				"item"		"item_swift_blink"
+				"item"		"item_sheepstick"
+			}
+			"#DOTA_HeroGuide_Untitled"
+			{
+				"item"		"item_clarity"
+				"item"		"item_enchanted_mango"
+				"item"		"item_tango"
+				"item"		"item_ward_sentry"
+				"item"		"item_flask"
+				"item"		"item_dust"
+				"item"		"item_ward_observer"
+				"item"		"item_infused_raindrop"
+			}
+		}
+		"ItemTooltips"
+		{
+		}
+	}
+	"AbilityBuild"
+	{
+		"AbilityOrder"
+		{
+			"1"		"naga_siren_mirror_image"
+			"2"		"naga_siren_rip_tide"
+			"3"		"naga_siren_mirror_image"
+			"4"		"naga_siren_rip_tide"
+			"5"		"naga_siren_mirror_image"
+			"6"		"naga_siren_rip_tide"
+			"7"		"naga_siren_mirror_image"
+			"8"		"naga_siren_rip_tide"
+			"9"		"naga_siren_song_of_the_siren"
+			"10"		"special_bonus_unique_naga_siren_2"
+			"12"		"naga_siren_song_of_the_siren"
+			"13"		"naga_siren_ensnare"
+			"14"		"naga_siren_ensnare"
+			"15"		"special_bonus_unique_naga_siren_4"
+			"16"		"naga_siren_ensnare"
+			"17"		"naga_siren_ensnare"
+			"18"		"naga_siren_song_of_the_siren"
+			"20"		"special_bonus_unique_naga_siren"
+			"25"		"special_bonus_unique_naga_siren_6"
+		}
+		"AbilityTooltips"
+		{
+		}
+	}
+}
