@@ -22,13 +22,13 @@ def fetch_json(url: str, cache_name: str | None = None, ttl: int = CACHE_TTL) ->
     if cache_file and cache_file.exists():
         age = time.time() - cache_file.stat().st_mtime
         if age < ttl:
-            return json.loads(cache_file.read_text())
+            return json.loads(cache_file.read_text(encoding="utf-8"))
     req = Request(url, headers={"User-Agent": USER_AGENT})
     with urlopen(req, timeout=30) as resp:
         data = json.loads(resp.read().decode("utf-8"))
     if cache_file:
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
-        cache_file.write_text(json.dumps(data))
+        cache_file.write_text(json.dumps(data), encoding="utf-8")
     return data
 
 

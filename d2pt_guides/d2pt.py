@@ -55,7 +55,7 @@ class D2PTClient:
     def _get(self, path: str, cache_name: str):
         cache_file = CACHE_DIR / "d2pt" / f"{cache_name}.json"
         if cache_file.exists() and time.time() - cache_file.stat().st_mtime < self.cache_ttl:
-            return json.loads(cache_file.read_text())
+            return json.loads(cache_file.read_text(encoding="utf-8"))
 
         wait = self.delay - (time.time() - self._last_request)
         if wait > 0:
@@ -77,7 +77,7 @@ class D2PTClient:
 
         data = json.loads(body)
         cache_file.parent.mkdir(parents=True, exist_ok=True)
-        cache_file.write_text(body)
+        cache_file.write_text(body, encoding="utf-8")
         return data
 
     def heroes_list(self) -> list[dict]:
