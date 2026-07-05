@@ -57,6 +57,14 @@ def _pct(x: float) -> str:
     return f"{round(x * 100)}%"
 
 
+def _build_win_rate(build: dict) -> float:
+    # Newer payloads only carry num_wins/num_matches at the top level.
+    if build.get("win_rate") is not None:
+        return build["win_rate"]
+    matches = build.get("num_matches") or 0
+    return build.get("num_wins", 0) / matches if matches else 0.0
+
+
 class GuideBuilder:
     def __init__(self, constants: Constants, options: BuilderOptions | None = None):
         self.c = constants
@@ -89,7 +97,7 @@ class GuideBuilder:
     # --- title / overview ---------------------------------------------------
 
     def _title(self, hero_display: str, pos_label: str, build: dict) -> str:
-        wr = _pct(build.get("win_rate", 0))
+        wr = _pct(_build_win_rate(build))
         return f"D2PT {hero_display} {pos_label} · {wr} WR"
 
     def _overview(self, hero_display: str, pos_label: str, build: dict, source_url: str) -> str:
@@ -98,7 +106,7 @@ class GuideBuilder:
             "Auto-generated from Dota2ProTracker: most played build in "
             "7000+ MMR pub games (last ~8 days).",
             f"{build.get('num_matches', '?')} matches · "
-            f"{_pct(build.get('win_rate', 0))} win rate",
+            f"{_pct(_build_win_rate(build))} win rate",
             "",
             "Item categories: CORE items are bought in >=50% of games and "
             "listed in typical purchase order. SITUATIONAL items are the "
@@ -215,14 +223,21 @@ class GuideBuilder:
         return pool
 
     def _add_neutrals(self, guide: Guide, bd: dict) -> None:
+        # Tier dicts are keyed by item id; older payloads also carried a
+        # shortName per entry, current ones don't.
         tiers = bd.get("neutral_stats") or {}
         items: list[str] = []
         for tier in sorted(tiers, key=lambda t: int(t)):
             ranked = sorted(
-                tiers[tier].values(), key=lambda e: e.get("count", 0), reverse=True
+                tiers[tier].items(), key=lambda kv: kv[1].get("count", 0), reverse=True
             )
-            for e in ranked[: self.opt.neutrals_per_tier]:
-                name = f"item_{e['shortName']}"
+            for iid, e in ranked[: self.opt.neutrals_per_tier]:
+                if e.get("shortName"):
+                    name = f"item_{e['shortName']}"
+                else:
+                    name = self._item_name(int(iid))
+                if not name:
+                    continue
                 items.append(name)
                 guide.item_tooltips[name] = (
                     f"Tier {int(tier) + 1} neutral · picked {_pct(e.get('pick_rate', 0))} "

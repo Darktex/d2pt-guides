@@ -1,6 +1,7 @@
-"""End-to-end builder tests against a real d2pt API payload (Sven pos 1,
-captured 2026-06). Uses live OpenDota constants (cached on disk after the
-first run)."""
+"""End-to-end builder tests against real d2pt API payloads (Sven pos 1,
+captured 2026-06 and 2026-07 — the schema drifted between them: the newer
+one has no top-level win_rate and no shortName on neutral items). Uses live
+OpenDota constants (cached on disk after the first run)."""
 
 import json
 import re
@@ -20,9 +21,12 @@ def constants():
     return Constants()
 
 
-@pytest.fixture(scope="module")
-def sven_guide(constants):
-    build = json.loads((FIXTURES / "builds_sven_pos1.json").read_text())[0]
+@pytest.fixture(
+    scope="module",
+    params=["builds_sven_pos1.json", "builds_sven_pos1_202607.json"],
+)
+def sven_guide(request, constants):
+    build = json.loads((FIXTURES / request.param).read_text())[0]
     return GuideBuilder(constants).build_guide(
         build, source_url="https://dota2protracker.com/hero/Sven", patch="7.40c"
     )
@@ -31,6 +35,9 @@ def sven_guide(constants):
 def test_header_fields(sven_guide):
     assert sven_guide.hero == "sven"
     assert sven_guide.title.startswith("D2PT Sven Carry")
+    # Win rate must come from num_wins/num_matches when the payload has no
+    # top-level win_rate field.
+    assert "· 0% WR" not in sven_guide.title
     assert sven_guide.role == "#DOTA_HeroGuide_Role_Core"
     assert "Dota2ProTracker" in sven_guide.overview
 

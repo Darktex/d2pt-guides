@@ -8,3 +8,4 @@ build/
 .cache/
 output/
 .pytest_cache/
+uv.lock

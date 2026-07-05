@@ -8,7 +8,7 @@ import time
 from pathlib import Path
 from urllib.parse import quote
 
-from .builder import BuilderOptions, GuideBuilder
+from .builder import BuilderOptions, GuideBuilder, _build_win_rate
 from .constants import Constants
 from .d2pt import POSITION_LABELS, POSITIONS, CloudflareBlocked, D2PTClient
 from .steam import find_guide_dirs, install
@@ -154,7 +154,7 @@ def main(argv: list[str] | None = None) -> int:
                 print(
                     f"wrote {path}  ({display} {POSITION_LABELS[pos]}, "
                     f"{build['num_matches']} matches, "
-                    f"{round(build.get('win_rate', 0) * 100)}% WR)"
+                    f"{round(_build_win_rate(build) * 100)}% WR)"
                 )
 
     if not written:
