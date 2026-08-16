@@ -75,6 +75,9 @@ class Constants:
         """'str' | 'agi' | 'int' | 'all' (universal)."""
         return self.hero_by_id(hero_id).get("primary_attr", "all")
 
+    def hero_is_melee(self, hero_id: int) -> bool:
+        return self.hero_by_id(hero_id).get("attack_type") == "Melee"
+
     def latest_patch(self) -> str:
         """Name of the newest gameplay patch ('7.40c'), '' if unavailable."""
         try:

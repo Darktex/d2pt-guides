@@ -208,15 +208,18 @@ class GuideBuilder:
         by_name = {e["name"]: e for e in pool}
 
         # Super-blink choice: any upgrade the data shows, plus the hero's
-        # primary-attribute one. Universal heroes (Ursa, ...) get both Swift
-        # and Overwhelming — either can be right depending on the game —
-        # while Arcane only appears for them when the data shows it.
+        # primary-attribute one (universal heroes get Swift and Overwhelming;
+        # Arcane only appears for them when the data shows it). Melee heroes
+        # additionally always get Overwhelming — the tank/teamfight blink
+        # suits any melee frontliner (Ursa: Swift or Overwhelming).
         wanted = {b for b in SUPER_BLINKS.values() if b in by_name}
         attr = self.c.hero_primary_attr(hero_id)
         if attr in SUPER_BLINKS:
             wanted.add(SUPER_BLINKS[attr])
         else:
             wanted.update((SUPER_BLINKS["str"], SUPER_BLINKS["agi"]))
+        if self.c.hero_is_melee(hero_id):
+            wanted.add(SUPER_BLINKS["str"])
         blinks = [b for b in SUPER_BLINKS.values() if b in wanted]
 
         usage = {
