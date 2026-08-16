@@ -84,6 +84,53 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     return p.parse_args(argv)
 
 
+class Progress:
+    """Per-hero progress: a live single-line bar on a terminal, plain
+    '[i/N] hero' lines when piped or logged."""
+
+    WIDTH = 24
+
+    def __init__(self, total: int) -> None:
+        self.total = max(total, 1)
+        self.i = 0
+        self.label = ""
+        self.tty = sys.stderr.isatty()
+
+    def step(self, label: str) -> None:
+        self.i += 1
+        self.label = label
+        if self.tty:
+            self._draw()
+        else:
+            print(f"[{self.i}/{self.total}] {label}", flush=True)
+
+    def println(self, msg: str) -> None:
+        """Print a normal output line without corrupting the bar."""
+        self._clear()
+        print(msg, flush=True)
+        if self.tty:
+            self._draw()
+
+    def done(self) -> None:
+        if self.tty and self.i:
+            sys.stderr.write("\n")
+            sys.stderr.flush()
+
+    def _draw(self) -> None:
+        filled = round(self.WIDTH * self.i / self.total)
+        pct = round(100 * self.i / self.total)
+        sys.stderr.write(
+            f"\r[{'#' * filled}{'-' * (self.WIDTH - filled)}] "
+            f"{self.i}/{self.total} ({pct:>3}%) {self.label[:20]:<20}"
+        )
+        sys.stderr.flush()
+
+    def _clear(self) -> None:
+        if self.tty:
+            sys.stderr.write("\r" + " " * (self.WIDTH + 32) + "\r")
+            sys.stderr.flush()
+
+
 def pick_positions(hero_row: dict, requested: list[str], min_matches: int) -> list[str]:
     if requested:
         return requested
@@ -134,12 +181,16 @@ def main(argv: list[str] | None = None) -> int:
     written: list[Path] = []
     heroes_written: set[str] = set()
 
+    progress = Progress(len(hero_ids))
     for hero_id in hero_ids:
         row = roster.get(hero_id, {})
         display = constants.hero_display_name(hero_id)
+        progress.step(display)
         positions = pick_positions(row, requested_positions, args.min_matches)
         if not positions:
-            print(f"{display}: no position with >= {args.min_matches} matches, skipping")
+            progress.println(
+                f"{display}: no position with >= {args.min_matches} matches, skipping"
+            )
             continue
         for pos in positions:
             try:
@@ -152,7 +203,7 @@ def main(argv: list[str] | None = None) -> int:
                 b for b in builds if b.get("num_matches", 0) >= args.min_matches
             ][: args.top_builds]
             if not builds:
-                print(f"{display} {pos}: no build with enough matches, skipping")
+                progress.println(f"{display} {pos}: no build with enough matches, skipping")
                 continue
             for idx, build in enumerate(builds):
                 url = f"https://dota2protracker.com/hero/{quote(display)}"
@@ -167,11 +218,12 @@ def main(argv: list[str] | None = None) -> int:
                 path.write_text(guide.render(), encoding="utf-8", newline="\n")
                 written.append(path)
                 heroes_written.add(guide.hero)
-                print(
+                progress.println(
                     f"wrote {path}  ({display} {POSITION_LABELS[pos]}, "
                     f"{build['num_matches']} matches, "
                     f"{round(_build_win_rate(build) * 100)}% WR)"
                 )
+    progress.done()
 
     if not written:
         print("nothing generated", file=sys.stderr)
