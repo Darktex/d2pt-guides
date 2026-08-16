@@ -198,8 +198,44 @@ class GuideBuilder:
                     f"{_pct(e['win_rate'])} WR · avg {e['avg_minute']:.0f} min."
                 )
 
+        self._ensure_boots(guide, pool)
         if self.opt.late_staples:
             self._add_late_staples(guide, pool, hero_id)
+
+    def _ensure_boots(self, guide: Guide, pool: list[dict]) -> None:
+        """Some meta builds (Io, Tinker, no-boots Huskar, ...) buy boots so
+        rarely that every option lands under the situational floor and the
+        guide ends up bootless. Surface the choice anyway, with honest
+        numbers."""
+        boots = self.c.boots_items()
+        if {i for cat in guide.item_categories for i in cat.items} & boots:
+            return
+        ranked = sorted(
+            (e for e in pool if e["name"] in boots),
+            key=lambda e: e["pr"],
+            reverse=True,
+        )[:2]
+        items = []
+        for e in ranked:
+            items.append(e["name"])
+            guide.item_tooltips[e["name"]] = (
+                f"BOOTS · this build usually skips boots — bought in only "
+                f"{_pct(e['pr'])} of matches ({_pct(e['win_rate'])} WR, "
+                f"avg {e['avg_minute']:.0f} min)."
+            )
+        if not items:
+            items = ["item_boots"]
+            guide.item_tooltips["item_boots"] = (
+                "BOOTS · no boots at all in d2pt's data for this build — "
+                "players skip them; buy for the move speed if you want it."
+            )
+        after_starting = bool(
+            guide.item_categories and guide.item_categories[0].title == CAT_STARTING
+        )
+        guide.item_categories.insert(
+            1 if after_starting else 0,
+            ItemCategory("Boots (usually skipped)", items),
+        )
 
     def _add_late_staples(self, guide: Guide, pool: list[dict], hero_id: int) -> None:
         """Pin the endgame staples that d2pt's normal-pub data window often

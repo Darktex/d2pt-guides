@@ -75,6 +75,23 @@ class Constants:
         """'str' | 'agi' | 'int' | 'all' (universal)."""
         return self.hero_by_id(hero_id).get("primary_attr", "all")
 
+    def boots_items(self) -> set[str]:
+        """'item_boots' plus every item built from it, transitively
+        ('item_power_treads', 'item_guardian_greaves', ...)."""
+        if not hasattr(self, "_boots"):
+            family = {"boots"}
+            changed = True
+            while changed:
+                changed = False
+                for short, it in self._items.items():
+                    if short not in family and any(
+                        c in family for c in it.get("components") or []
+                    ):
+                        family.add(short)
+                        changed = True
+            self._boots = {f"item_{s}" for s in family}
+        return self._boots
+
     def hero_is_melee(self, hero_id: int) -> bool:
         return self.hero_by_id(hero_id).get("attack_type") == "Melee"
 

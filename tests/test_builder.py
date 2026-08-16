@@ -93,6 +93,35 @@ def test_late_staples_always_present(sven_guide):
         assert sven_guide.item_tooltips[item].startswith("STAPLE")
 
 
+def test_guides_always_include_boots(sven_guide, constants):
+    everywhere = {i for c in sven_guide.item_categories for i in c.items}
+    assert everywhere & constants.boots_items()
+    # Sven actually buys boots, so no fallback category should appear.
+    assert all("Boots (" not in c.title for c in sven_guide.item_categories)
+
+
+def test_bootless_build_gets_boots_category(constants):
+    """A build whose data has no boots above the floor still surfaces them."""
+    build = json.loads((FIXTURES / "builds_sven_pos1.json").read_text())[0]
+    bd = build["build_data"]
+    boots = constants.boots_items()
+
+    def keep(entry):
+        return constants.item_internal_name(entry["raw_item_id"]) not in boots
+
+    for key in ("starting_items", "anchor_items", "anchor_items2", "items_mid_late"):
+        bd[key] = [e for e in bd.get(key) or [] if keep(e)]
+    bd["starting_items_new"] = [
+        ([i for i in ids if constants.item_internal_name(i) not in boots], stats)
+        for ids, stats in bd.get("starting_items_new") or []
+    ]
+    guide = GuideBuilder(constants).build_guide(build)
+    cat = next(c for c in guide.item_categories if c.title == "Boots (usually skipped)")
+    assert cat.items == ["item_boots"]  # zero data -> plain Boots of Speed
+    assert guide.item_tooltips["item_boots"].startswith("BOOTS")
+    assert guide.item_categories.index(cat) <= 1
+
+
 def test_late_staples_can_be_disabled(constants):
     build = json.loads((FIXTURES / "builds_sven_pos1.json").read_text())[0]
     guide = GuideBuilder(constants, BuilderOptions(late_staples=False)).build_guide(
