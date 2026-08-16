@@ -36,6 +36,17 @@ TALENT_LEVELS = [10, 15, 20, 25]
 EARLY_END = 12  # minutes, same bucketing as the d2pt UI
 MID_END = 35
 
+# Endgame pickups that stay relevant in every very long game (and in Turbo,
+# where late game is reached almost every match). D2PT's data window is normal
+# pubs, which often end before these are bought, so they are pinned into their
+# own category even when the data has nothing for them.
+CAT_SUPER_LATE = "Super Late & Turbo"
+SUPER_BLINKS = {
+    "str": "item_overwhelming_blink",
+    "agi": "item_swift_blink",
+    "int": "item_arcane_blink",
+}
+
 ROLE_FOR_POSITION = {
     "pos 1": ROLE_TOKENS["core"],
     "pos 2": ROLE_TOKENS["core"],
@@ -51,6 +62,7 @@ class BuilderOptions:
     situational_floor: float = 0.15  # ignore items below this pick rate
     max_situational: int = 8  # per phase
     neutrals_per_tier: int = 2
+    late_staples: bool = True  # pin the Super Late & Turbo category
 
 
 def _pct(x: float) -> str:
@@ -86,7 +98,7 @@ class GuideBuilder:
         )
 
         self._notes: list[str] = []
-        self._add_items(guide, bd)
+        self._add_items(guide, bd, hero_id)
         self._add_neutrals(guide, bd)
         self._add_abilities(guide, bd)
         guide.overview = self._overview(hero_display, pos_label, build, source_url)
@@ -113,6 +125,9 @@ class GuideBuilder:
             "lower-frequency alternatives — hover them for pick rate, win "
             "rate and average timing before committing.",
             "Talent tooltips compare both options' pick and win rates.",
+            "The Super Late & Turbo category pins endgame staples (BKB, "
+            "Shard, Blessing, super-blink, Moon Shard) that pub data often "
+            "ends too early to show.",
         ]
         if source_url:
             lines += ["", f"Source: {source_url}"]
@@ -125,7 +140,7 @@ class GuideBuilder:
     def _item_name(self, item_id: int) -> str | None:
         return self.c.item_internal_name(item_id)
 
-    def _add_items(self, guide: Guide, bd: dict) -> None:
+    def _add_items(self, guide: Guide, bd: dict, hero_id: int) -> None:
         # Starting items: the most common complete starting inventory.
         starting = self._starting_inventory(bd)
         if starting:
@@ -182,6 +197,58 @@ class GuideBuilder:
                     f"SITUATIONAL · bought in {_pct(e['pr'])} of matches · "
                     f"{_pct(e['win_rate'])} WR · avg {e['avg_minute']:.0f} min."
                 )
+
+        if self.opt.late_staples:
+            self._add_late_staples(guide, pool, hero_id)
+
+    def _add_late_staples(self, guide: Guide, pool: list[dict], hero_id: int) -> None:
+        """Pin the endgame staples that d2pt's normal-pub data window often
+        never reaches: BKB, Aghanim's Shard/Blessing, the hero's super-blink
+        upgrade(s) and a Moon Shard to consume."""
+        by_name = {e["name"]: e for e in pool}
+
+        # Super-blink choice: any upgrade the data actually shows (some heroes
+        # buy two, e.g. Swift + Overwhelming), else the primary-attribute one;
+        # universal heroes with no data get all three to judge in-game.
+        blinks = [b for b in SUPER_BLINKS.values() if b in by_name]
+        if not blinks:
+            attr = self.c.hero_primary_attr(hero_id)
+            blinks = [SUPER_BLINKS[attr]] if attr in SUPER_BLINKS else list(
+                SUPER_BLINKS.values()
+            )
+
+        usage = {
+            "item_ultimate_scepter_2": "frees the Scepter inventory slot",
+            "item_moon_shard": "consume it once slots run out",
+        }
+        present = {i for cat in guide.item_categories for i in cat.items}
+        items = []
+        for name in [
+            "item_black_king_bar",
+            "item_aghanims_shard",
+            *blinks,
+            "item_ultimate_scepter_2",
+            "item_moon_shard",
+        ]:
+            if name in present:
+                continue  # already in a data-driven category
+            items.append(name)
+            e = by_name.get(name)
+            if e:
+                tip = (
+                    f"STAPLE · bought in {_pct(e['pr'])} of matches · "
+                    f"{_pct(e['win_rate'])} WR · avg {e['avg_minute']:.0f} min."
+                )
+            else:
+                tip = (
+                    "STAPLE · no recent d2pt data (pubs in the data window "
+                    "rarely go this long) — standard super-late pickup."
+                )
+            if name in usage:
+                tip += f" {usage[name].capitalize()}."
+            guide.item_tooltips[name] = tip
+        if items:
+            guide.item_categories.append(ItemCategory(CAT_SUPER_LATE, items))
 
     def _starting_inventory(self, bd: dict) -> list[str]:
         inventories = bd.get("starting_items_new") or []

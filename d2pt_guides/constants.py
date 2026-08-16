@@ -71,6 +71,18 @@ class Constants:
                 return int(hid)
         raise KeyError(f"unknown hero: {name!r}")
 
+    def hero_primary_attr(self, hero_id: int) -> str:
+        """'str' | 'agi' | 'int' | 'all' (universal)."""
+        return self.hero_by_id(hero_id).get("primary_attr", "all")
+
+    def latest_patch(self) -> str:
+        """Name of the newest gameplay patch ('7.40c'), '' if unavailable."""
+        try:
+            patches = fetch_json(f"{OPENDOTA}/patch", "patch", ttl=24 * 3600)
+            return patches[-1].get("name", "") if patches else ""
+        except Exception:
+            return ""
+
     # --- items ------------------------------------------------------------
     def item_internal_name(self, item_id: int) -> str | None:
         """36 -> 'item_magic_wand'. Returns None for unknown ids."""

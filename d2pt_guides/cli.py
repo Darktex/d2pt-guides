@@ -63,7 +63,18 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="with --install: delete previously installed D2PT guides for the "
         "same heroes before installing",
     )
-    p.add_argument("--patch", default="", help="patch label for the guide, e.g. 7.40c")
+    p.add_argument(
+        "--patch",
+        default="",
+        help="patch label for the guide, e.g. 7.40c (default: newest patch "
+        "name from OpenDota)",
+    )
+    p.add_argument(
+        "--no-late-staples",
+        action="store_true",
+        help="don't pin the 'Super Late & Turbo' category (BKB, Aghanim's "
+        "Shard/Blessing, super-blink, Moon Shard) into every guide",
+    )
     p.add_argument(
         "--situational-floor",
         type=float,
@@ -98,8 +109,13 @@ def main(argv: list[str] | None = None) -> int:
     constants = Constants()
     client = D2PTClient()
     builder = GuideBuilder(
-        constants, BuilderOptions(situational_floor=args.situational_floor)
+        constants,
+        BuilderOptions(
+            situational_floor=args.situational_floor,
+            late_staples=not args.no_late_staples,
+        ),
     )
+    patch = args.patch or constants.latest_patch()
 
     try:
         roster = {row["hero_id"]: row for row in client.heroes_list()}
@@ -140,7 +156,7 @@ def main(argv: list[str] | None = None) -> int:
                 continue
             for idx, build in enumerate(builds):
                 url = f"https://dota2protracker.com/hero/{quote(display)}"
-                guide = builder.build_guide(build, source_url=url, patch=args.patch)
+                guide = builder.build_guide(build, source_url=url, patch=patch)
                 if len(builds) > 1:
                     guide.title += f" #{idx + 1}"
                 # Unique filename per hero+position+build (filenames carry

@@ -20,6 +20,12 @@ other guide:
 - **Talents** chosen by pick rate — the tooltip shows both options' pick/win
   rates so you can deviate when the situation calls for it.
 - **Top neutral items per tier**, with pick/win rates.
+- **"Super Late & Turbo" category** pinned into every guide: BKB, Aghanim's
+  Shard, Aghanim's Blessing, the hero's super-blink upgrade(s) and a Moon
+  Shard to consume — the endgame staples that D2PT's normal-pub data window
+  often ends too early to show, but that every long (or Turbo) game reaches.
+  Items the data already covers aren't duplicated; disable with
+  `--no-late-staples`.
 
 See [`examples/sven_carry_example.build`](examples/sven_carry_example.build) for
 what the output looks like.
@@ -64,7 +70,25 @@ Other useful flags:
 | `--top-builds N` | up to N guides per hero+position (one per D2PT build/facet) |
 | `--min-matches N` | skip hero/position combos with few recent matches (default 30) |
 | `--situational-floor 0.15` | min pick rate for an item to show as situational |
-| `--patch 7.40c` | patch label stamped on the guide |
+| `--patch 7.40c` | patch label stamped on the guide (default: newest patch from OpenDota) |
+| `--no-late-staples` | don't pin the Super Late & Turbo category |
+
+## Automatic weekly updates (Windows)
+
+[`scripts/update_guides.ps1`](scripts/update_guides.ps1) regenerates and
+reinstalls everything, and exits without touching your guides if Dota 2 is
+running. Register it as a weekly scheduled task (adjust the guides dir):
+
+```powershell
+$script = "$PWD\scripts\update_guides.ps1"
+$guides = "C:\Program Files (x86)\Steam\userdata\<account>\570\remote\guides"
+Register-ScheduledTask -TaskName "d2pt-guides weekly update" `
+  -Action (New-ScheduledTaskAction -Execute powershell.exe `
+    -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$script`" -GuidesDir `"$guides`"") `
+  -Trigger (New-ScheduledTaskTrigger -Weekly -DaysOfWeek Monday -At 7:00am) `
+  -Settings (New-ScheduledTaskSettingsSet -StartWhenAvailable `
+    -RestartCount 8 -RestartInterval (New-TimeSpan -Minutes 30))
+```
 
 ## How it works
 

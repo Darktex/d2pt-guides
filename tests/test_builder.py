@@ -9,7 +9,14 @@ from pathlib import Path
 
 import pytest
 
-from d2pt_guides.builder import ABILITY_LEVELS, GuideBuilder, TALENT_LEVELS
+from d2pt_guides.builder import (
+    ABILITY_LEVELS,
+    CAT_SUPER_LATE,
+    SUPER_BLINKS,
+    BuilderOptions,
+    GuideBuilder,
+    TALENT_LEVELS,
+)
 from d2pt_guides.constants import Constants
 from d2pt_guides.guide import CAT_STARTING
 
@@ -64,6 +71,34 @@ def test_situational_items_have_stat_tooltips(sven_guide):
             tip = sven_guide.item_tooltips[item]
             assert tip.startswith("SITUATIONAL")
             assert "WR" in tip and "min" in tip
+
+
+def test_late_staples_always_present(sven_guide):
+    """Endgame staples must appear somewhere in every guide, even when the
+    d2pt data window has no purchases for them (Turbo / super-late games)."""
+    everywhere = [i for c in sven_guide.item_categories for i in c.items]
+    for staple in (
+        "item_black_king_bar",
+        "item_aghanims_shard",
+        "item_ultimate_scepter_2",
+        "item_moon_shard",
+    ):
+        assert staple in everywhere, staple
+        assert everywhere.count(staple) == 1, f"{staple} duplicated"
+    assert any(b in everywhere for b in SUPER_BLINKS.values())
+    pinned = next(
+        c for c in sven_guide.item_categories if c.title == CAT_SUPER_LATE
+    )
+    for item in pinned.items:
+        assert sven_guide.item_tooltips[item].startswith("STAPLE")
+
+
+def test_late_staples_can_be_disabled(constants):
+    build = json.loads((FIXTURES / "builds_sven_pos1.json").read_text())[0]
+    guide = GuideBuilder(constants, BuilderOptions(late_staples=False)).build_guide(
+        build
+    )
+    assert all(c.title != CAT_SUPER_LATE for c in guide.item_categories)
 
 
 def test_ability_order_levels(sven_guide):
