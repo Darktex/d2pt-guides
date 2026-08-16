@@ -139,6 +139,11 @@ def test_render_matches_valve_kv_shape(sven_guide):
     )
 
 
+def test_latest_patch_includes_letter_revisions(constants):
+    """'7.41e', not just the major '7.41' OpenDota tracks."""
+    assert re.fullmatch(r"7\.\d+[a-z]?", constants.latest_patch())
+
+
 def test_real_guide_file_parses_with_same_conventions():
     """Sanity-check our format assumptions against a real in-game-editor file."""
     text = (FIXTURES / "naga_siren_1755780481.build").read_text()

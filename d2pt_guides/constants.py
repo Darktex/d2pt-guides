@@ -79,7 +79,21 @@ class Constants:
         return self.hero_by_id(hero_id).get("attack_type") == "Melee"
 
     def latest_patch(self) -> str:
-        """Name of the newest gameplay patch ('7.40c'), '' if unavailable."""
+        """Name of the newest gameplay patch ('7.41e'), '' if unavailable.
+
+        Valve's patch-notes feed knows letter patches; OpenDota's list only
+        tracks majors ('7.41'), so it is just the fallback."""
+        try:
+            notes = fetch_json(
+                "https://www.dota2.com/datafeed/patchnoteslist?language=english",
+                "patchnoteslist",
+                ttl=24 * 3600,
+            )
+            patches = notes.get("patches") or []
+            if patches:
+                return patches[-1].get("patch_name", "")
+        except Exception:
+            pass
         try:
             patches = fetch_json(f"{OPENDOTA}/patch", "patch", ttl=24 * 3600)
             return patches[-1].get("name", "") if patches else ""
