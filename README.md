@@ -97,6 +97,11 @@ Register-ScheduledTask -TaskName "d2pt-guides weekly update" `
   `~/.cache/d2pt-guides/`.
 - Hero/item/ability id ↔ name mappings come from OpenDota's constants API
   (cached for a week).
+- Filenames are stable across regenerations (`<hero>_<deterministic id>.build`
+  per hero+position+build slot), so updating overwrites each guide in place —
+  the client treats it as the same guide and anyone following it keeps the
+  followed guide, now with fresh data. `TimeUpdated` still reflects the real
+  generation time.
 - The `.build` output matches the format the in-game guide editor saves
   (KeyValues, `GuideFormatVersion 2`): item categories with custom display
   names, `AbilityOrder` keyed by hero level with talents as `special_bonus_*`

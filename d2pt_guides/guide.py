@@ -53,14 +53,15 @@ class Guide:
     ability_order: dict[int, str] = field(default_factory=dict)
     item_tooltips: dict[str, str] = field(default_factory=dict)
     ability_tooltips: dict[str, str] = field(default_factory=dict)
-    timestamp: int = 0  # creation time; also used in the filename
+    timestamp: int = 0  # stable identity: used in the filename, never changes
+    updated: int = 0  # actual generation time, shown as TimeUpdated in-game
 
     def filename(self) -> str:
         ts = self.timestamp or int(time.time())
         return f"{self.hero}_{ts}.build"
 
     def render(self) -> str:
-        ts = self.timestamp or int(time.time())
+        ts = self.updated or self.timestamp or int(time.time())
         out: list[str] = []
         w = out.append
 

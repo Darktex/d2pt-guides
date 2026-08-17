@@ -131,6 +131,18 @@ class Progress:
             sys.stderr.flush()
 
 
+# Fixed epoch for stable filenames. The in-game client identifies a local
+# guide by its file name, so regenerating under the same name updates the
+# guide in place and anyone following it keeps following it. A fresh
+# timestamp per run would make every update look like a brand-new guide.
+STABLE_TS_BASE = 1_600_000_000
+
+
+def stable_guide_id(hero_id: int, pos_num: int, build_idx: int) -> int:
+    """Deterministic pseudo-timestamp, unique per hero+position+build slot."""
+    return STABLE_TS_BASE + hero_id * 1_000 + pos_num * 100 + build_idx
+
+
 def pick_positions(hero_row: dict, requested: list[str], min_matches: int) -> list[str]:
     if requested:
         return requested
@@ -210,10 +222,9 @@ def main(argv: list[str] | None = None) -> int:
                 guide = builder.build_guide(build, source_url=url, patch=patch)
                 if len(builds) > 1:
                     guide.title += f" #{idx + 1}"
-                # Unique filename per hero+position+build (filenames carry
-                # only hero name + timestamp).
                 pos_num = int(pos.split()[1])
-                guide.timestamp = base_ts + pos_num * 10 + idx
+                guide.timestamp = stable_guide_id(hero_id, pos_num, idx)
+                guide.updated = base_ts
                 path = out_dir / guide.filename()
                 path.write_text(guide.render(), encoding="utf-8", newline="\n")
                 written.append(path)
