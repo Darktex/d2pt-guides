@@ -1,25 +1,54 @@
-# Refresh and reinstall all D2PT guides. Meant to run unattended from a
-# Windows scheduled task, e.g.:
-#   powershell -NoProfile -ExecutionPolicy Bypass -File scripts\update_guides.ps1 `
+# Refresh and reinstall all D2PT guides. Meant to run unattended and with no
+# window from a Windows scheduled task, e.g.:
+#   conhost.exe --headless powershell -NoProfile -NonInteractive -WindowStyle Hidden `
+#       -ExecutionPolicy Bypass -File scripts\update_guides.ps1 `
 #       -GuidesDir "C:\...\Steam\userdata\<account>\570\remote\guides"
 #
-# Exits 1 without touching anything if Dota 2 is running (the client only
-# picks up guide files at startup) so Task Scheduler's restart-on-failure
-# can retry later. Appends a log to output\update.log in the repo.
+# The task fires weekly and at every logon. This script decides whether
+# there is anything to do:
+#   - If the last successful update is younger than -MinAgeDays, exit 0.
+#   - If Dota 2 is running, wait quietly until it closes (the client only
+#     picks up guide files at startup), up to -MaxWaitHours.
+# Appends a log to output\update.log and records the last successful run in
+# output\last_success.txt.
 param(
-    [string]$GuidesDir = ""
+    [string]$GuidesDir = "",
+    [double]$MinAgeDays = 6,
+    [double]$MaxWaitHours = 16,
+    [int]$PollSeconds = 60
 )
 
 $repo = Split-Path -Parent $PSScriptRoot
 $outDir = Join-Path $repo "output"
 $log = Join-Path $outDir "update.log"
+$stamp = Join-Path $outDir "last_success.txt"
 New-Item -ItemType Directory -Force $outDir | Out-Null
 
-function Write-Log($msg) { "$(Get-Date -Format s) $msg" | Add-Content $log }
+function Write-Log($msg) {
+    # Retry briefly: the log may be momentarily locked by a reader.
+    for ($i = 0; $i -lt 5; $i++) {
+        try { "$(Get-Date -Format s) $msg" | Add-Content $log -ErrorAction Stop; return }
+        catch { Start-Sleep -Milliseconds 200 }
+    }
+}
+function Test-Dota { [bool](Get-Process -Name dota2 -ErrorAction SilentlyContinue) }
 
-if (Get-Process -Name dota2 -ErrorAction SilentlyContinue) {
-    Write-Log "Dota 2 is running; skipping this attempt."
-    exit 1
+if (Test-Path $stamp) {
+    $age = (Get-Date) - (Get-Item $stamp).LastWriteTime
+    if ($age.TotalDays -lt $MinAgeDays) { exit 0 }
+}
+
+if (Test-Dota) {
+    Write-Log "Dota 2 is running; waiting for it to close."
+    $deadline = (Get-Date).AddHours($MaxWaitHours)
+    while (Test-Dota) {
+        if ((Get-Date) -gt $deadline) {
+            Write-Log "Dota 2 still running after $MaxWaitHours h; giving up until next trigger."
+            exit 1
+        }
+        Start-Sleep -Seconds $PollSeconds
+    }
+    Write-Log "Dota 2 closed."
 }
 
 Set-Location $repo
@@ -33,5 +62,6 @@ if ($LASTEXITCODE -ne 0) {
     Write-Log "FAILED (exit $LASTEXITCODE)"
     exit 1
 }
+Get-Date -Format s | Set-Content $stamp
 Write-Log "Done."
 exit 0
