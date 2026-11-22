@@ -52,8 +52,8 @@ def test_header_fields(sven_guide):
 def test_item_categories(sven_guide):
     titles = [c.title for c in sven_guide.item_categories]
     assert titles[0] == CAT_STARTING
-    assert any("Early Game" in t for t in titles)
-    assert any("Situational" in t for t in titles)
+    assert "Core Items" in titles
+    assert "Situational Items" in titles
     assert "Top Neutral Items" in titles
     for cat in sven_guide.item_categories:
         assert cat.items, f"empty category {cat.title}"
@@ -63,15 +63,158 @@ def test_item_categories(sven_guide):
 
 def test_situational_items_have_stat_tooltips(sven_guide):
     situational = [
-        c for c in sven_guide.item_categories if "Situational" in c.title
+        c for c in sven_guide.item_categories if c.title == "Situational Items"
     ]
     assert situational
     for cat in situational:
         for item in cat.items:
             tip = sven_guide.item_tooltips[item]
             assert tip.startswith("SITUATIONAL")
-            assert "WR" in tip and "min" in tip
+            assert "pick rate" in tip.lower() and "WR" in tip and "min" in tip
 
+
+def test_situational_tooltip_shows_sample_and_all_match_pick_rates(constants):
+    build = json.loads((FIXTURES / "builds_sven_pos1_202607.json").read_text())[0]
+    guide = GuideBuilder(constants).build_guide(build)
+    tip = guide.item_tooltips["item_swift_blink"]
+    assert "55.1% in this item-build sample" in tip
+    assert "32.5% of all build matches" in tip
+
+
+def test_situational_minimum_purchase_minute_is_clamped_to_zero(constants):
+    build = json.loads((FIXTURES / "builds_sven_pos1_202607.json").read_text())[0]
+    stats = build["build_data"]["anchor_item_stats"]["603"]
+    stats["min_minute"] = -2
+    stats["max_minute"] = 60
+    guide = GuideBuilder(constants).build_guide(build)
+    tip = guide.item_tooltips["item_swift_blink"]
+    assert "(0-60 min)" in tip
+    assert "(-2-60 min)" not in tip
+
+
+def test_core_items_use_all_match_rates_from_all_progression_arrays(constants):
+    build = json.loads((FIXTURES / "builds_sven_pos1_202607.json").read_text())[0]
+    guide = GuideBuilder(constants).build_guide(build)
+    bd = build["build_data"]
+
+    by_id = {}
+    for key in ("anchor_items", "anchor_items2", "items_mid_late"):
+        for entry in bd.get(key) or []:
+            iid = int(entry["raw_item_id"])
+            pr = float(entry.get("pr", 0) or 0)
+            if pr > 1.0:
+                pr /= 100.0
+            if pr <= 0.5:
+                continue
+            previous = by_id.get(iid)
+            if previous is None or (entry.get("count", 0) or 0) > (previous.get("count", 0) or 0):
+                by_id[iid] = entry
+
+    expected = []
+    for iid, entry in by_id.items():
+        name = constants.item_internal_name(iid)
+        if name and entry.get("avg_minute") is not None:
+            pr = float(entry.get("pr", 0) or 0)
+            if pr > 1.0:
+                pr /= 100.0
+            expected.append((float(entry["avg_minute"]), -pr, name, pr))
+    expected.sort(key=lambda row: (row[0], row[1], row[2]))
+
+    core = next(c for c in guide.item_categories if c.title == "Core Items")
+    assert core.items == [name for _, _, name, _ in expected]
+    for _, _, name, pr in expected:
+        assert f"pick rate {pr * 100:.1f}%" in guide.item_tooltips[name]
+
+
+def test_all_non_core_anchor_stats_items_are_situational(constants):
+    build = json.loads((FIXTURES / "builds_sven_pos1_202607.json").read_text())[0]
+    guide = GuideBuilder(constants).build_guide(build)
+    bd = build["build_data"]
+
+    global_core_ids = set()
+    for key in ("anchor_items", "anchor_items2", "items_mid_late"):
+        for entry in bd.get(key) or []:
+            pr = float(entry.get("pr", 0) or 0)
+            if pr > 1.0:
+                pr /= 100.0
+            if pr > 0.5:
+                global_core_ids.add(int(entry["raw_item_id"]))
+
+    expected = []
+    for raw_iid, entry in (bd.get("anchor_item_stats") or {}).items():
+        iid = int(raw_iid)
+        if iid in global_core_ids:
+            continue
+        pr = float(entry.get("pr", 0) or 0) / 100.0
+        if pr <= 0:
+            continue
+        pr = max(0.0, min(pr, 1.0))
+        name = constants.item_internal_name(iid)
+        if name and entry.get("avg_minute") is not None:
+            expected.append((pr, float(entry["avg_minute"]), name))
+    expected.sort(key=lambda row: (-row[0], row[1], row[2]))
+
+    situational = next(c for c in guide.item_categories if c.title == "Situational Items")
+    assert situational.items == [name for _, _, name in expected]
+    assert len(situational.items) > 8
+
+
+def test_situational_item_can_have_over_50_percent_in_anchor_sample(constants):
+    build = json.loads((FIXTURES / "builds_sven_pos1_202607.json").read_text())[0]
+    stats = build["build_data"]["anchor_item_stats"]
+    assert "73" in stats
+    stats["73"]["pr"] = 65.0
+    guide = GuideBuilder(constants).build_guide(build)
+    situational = next(c for c in guide.item_categories if c.title == "Situational Items")
+    core = next(c for c in guide.item_categories if c.title == "Core Items")
+    assert "item_bracer" in situational.items
+    assert "item_bracer" not in core.items
+    assert "pick rate 65.0%" in guide.item_tooltips["item_bracer"]
+
+
+def test_very_low_situational_sample_rate_is_still_percent_units(constants):
+    build = json.loads((FIXTURES / "builds_sven_pos1_202607.json").read_text())[0]
+    build["build_data"]["anchor_item_stats"]["73"]["pr"] = 0.5
+    guide = GuideBuilder(constants).build_guide(build)
+    tip = guide.item_tooltips["item_bracer"]
+    assert "0.5% in this item-build sample" in tip
+
+
+def test_later_skill_points_use_weighted_alternative_orders(constants):
+    build = json.loads((FIXTURES / "builds_sven_pos1_202607.json").read_text())[0]
+    bd = build["build_data"]
+    ability_ids = {
+        "storm": 5094,
+        "warcry": 5096,
+        "ultimate": 5097,
+        "cleave": 5095,
+        "extra": 999999,
+    }
+    bd["abilities"] = [
+        {"ability_id": ability_ids["storm"], "name": "sven_storm_bolt", "isTalent": False, "isInnate": False},
+        {"ability_id": ability_ids["warcry"], "name": "sven_warcry", "isTalent": False, "isInnate": False},
+        {"ability_id": ability_ids["ultimate"], "name": "sven_gods_strength", "isTalent": False, "isInnate": False},
+        {"ability_id": ability_ids["cleave"], "name": "sven_great_cleave", "isTalent": False, "isInnate": False},
+        {"ability_id": ability_ids["extra"], "name": "sven_test_extra", "isTalent": False, "isInnate": False},
+    ]
+    top_order = [
+        ability_ids["storm"], ability_ids["storm"], ability_ids["storm"], ability_ids["storm"],
+        ability_ids["warcry"], ability_ids["ultimate"], ability_ids["warcry"], ability_ids["warcry"],
+        ability_ids["cleave"], ability_ids["extra"],
+    ]
+    alternate_order = [
+        ability_ids["storm"], ability_ids["storm"], ability_ids["storm"], ability_ids["storm"],
+        ability_ids["warcry"], ability_ids["ultimate"], ability_ids["warcry"], ability_ids["warcry"],
+        ability_ids["extra"], ability_ids["extra"],
+    ]
+    bd["abilities_new"] = [
+        (top_order, {"pr": 0.2, "win_rate": 0.5}),
+        (alternate_order, {"pr": 0.7, "win_rate": 0.5}),
+    ]
+
+    guide = GuideBuilder(constants).build_guide(build)
+    assert guide.ability_order[14] == "sven_test_extra"
+    assert "Skill points after hero level 11 are estimated" in guide.overview
 
 def test_late_staples_always_present(sven_guide):
     """Endgame staples must appear somewhere in every guide, even when the
@@ -111,6 +254,7 @@ def test_bootless_build_gets_boots_category(constants):
 
     for key in ("starting_items", "anchor_items", "anchor_items2", "items_mid_late"):
         bd[key] = [e for e in bd.get(key) or [] if keep(e)]
+    bd["anchor_item_stats"] = {}
     bd["starting_items_new"] = [
         ([i for i in ids if constants.item_internal_name(i) not in boots], stats)
         for ids, stats in bd.get("starting_items_new") or []

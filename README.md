@@ -8,15 +8,16 @@ For each hero + position it pulls the most played build (7000+ MMR pub games,
 last ~8 days) and writes a native `.build` guide file that Dota 2 loads like any
 other guide:
 
-- **Item build** split into Starting / Early / Mid / Late game categories, in
-  typical purchase order.
-- **Situational items captured**, just like on the site: D2PT treats items bought
-  in ≥50% of matches as core and lower-frequency picks as situational. Each phase
-  gets a separate *Situational* category, and **every item's tooltip shows its
-  pick rate, win rate and average purchase minute** so you can judge the branch
-  in-game.
-- **Skill order** from the most common first-10-points sequence, completed to
-  level 18, with the runner-up skill order noted in the guide overview.
+- **Core items**: every item bought in more than 50% of this build's matches,
+  shown in average purchase-time order, matching D2PT's core-item block.
+- **Situational items**: every other observed item in D2PT's item-build sample,
+  ranked by sample pick rate with no default floor or item cap. Tooltips show
+  sample pick rate, all-match pick rate when available, win rate, average
+  purchase time, time range and purchase count.
+- **Starting items** remain a separate category.
+- **Skill order** uses D2PT's most common first-10-points sequence. Remaining
+  regular skill points are estimated using all returned popular order variants,
+  with the runner-up order noted in the guide overview.
 - **Talents** chosen by pick rate — the tooltip shows both options' pick/win
   rates so you can deviate when the situation calls for it.
 - **Top neutral items per tier**, with pick/win rates.
@@ -69,7 +70,7 @@ Other useful flags:
 |---|---|
 | `--top-builds N` | up to N guides per hero+position (one per D2PT build/facet) |
 | `--min-matches N` | skip hero/position combos with few recent matches (default 30) |
-| `--situational-floor 0.15` | min pick rate for an item to show as situational |
+| `--situational-floor 0` | min pick rate in the item-build sample for situational items (default 0: keep all observed items) |
 | `--patch 7.40c` | patch label stamped on the guide (default: newest patch from OpenDota) |
 | `--no-late-staples` | don't pin the Super Late & Turbo category |
 
