@@ -18,7 +18,7 @@ from d2pt_guides.builder import (
     TALENT_LEVELS,
 )
 from d2pt_guides.constants import Constants
-from d2pt_guides.guide import CAT_STARTING
+from d2pt_guides.guide import CAT_STARTING, Guide
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -71,6 +71,68 @@ def test_situational_items_have_stat_tooltips(sven_guide):
             tip = sven_guide.item_tooltips[item]
             assert tip.startswith("SITUATIONAL")
             assert "WR" in tip and "min" in tip
+
+
+def test_neutral_items_are_deduplicated_and_show_top_three_tier_enchantments(constants):
+    neutral_id = 1605
+    neutral_name = constants.item_internal_name(neutral_id)
+    assert neutral_name
+
+    guide = Guide(hero="sven", title="neutral enchantment test")
+    bd = {
+        "neutral_stats": {
+            "1": {str(neutral_id): {"count": 30, "pick_rate": 0.2, "win_rate": 0.5}},
+            "2": {str(neutral_id): {"count": 60, "pick_rate": 0.3, "win_rate": 0.55}},
+        },
+        "enhancement_stats": {
+            "1": {
+                "1597": {"count": 99, "pick_rate": 0.99, "win_rate": 0.99},
+            },
+            "2": {
+                "1577": {"count": 20, "pick_rate": 0.20, "win_rate": 0.50},
+                "1583": {"count": 10, "pick_rate": 0.10, "win_rate": 0.45},
+                "1584": {"count": 60, "pick_rate": 0.60, "win_rate": 0.55},
+                "1597": {"count": 5, "pick_rate": 0.05, "win_rate": 0.40},
+                "1865": {"count": 3, "pick_rate": 0.03, "win_rate": 0.60},
+            },
+        },
+    }
+
+    GuideBuilder(constants)._add_neutrals(guide, bd)
+    neutrals = next(c for c in guide.item_categories if c.title == "Top Neutral Items")
+    tip = guide.item_tooltips[neutral_name]
+
+    assert neutrals.items.count(neutral_name) == 1
+    assert tip.startswith("Tier 3 neutral")
+    expected = [
+        constants.item_display_name(constants.item_internal_name(iid))
+        for iid in (1584, 1577, 1583)
+    ]
+    positions = [tip.index(name) for name in expected]
+    assert positions == sorted(positions)
+    assert "60% pick" in tip and "55% WR (n=60)" in tip
+    assert "20% pick" in tip and "50% WR (n=20)" in tip
+    assert "10% pick" in tip and "45% WR (n=10)" in tip
+    assert constants.item_display_name(constants.item_internal_name(1865)) not in tip
+    assert constants.item_display_name(constants.item_internal_name(1597)) not in tip
+
+
+def test_neutral_tooltip_without_enhancement_stats_remains_valid(constants):
+    neutral_id = 1605
+    neutral_name = constants.item_internal_name(neutral_id)
+    assert neutral_name
+
+    guide = Guide(hero="sven", title="neutral without enchantment stats")
+    bd = {
+        "neutral_stats": {
+            "2": {str(neutral_id): {"count": 10, "pick_rate": 0.2, "win_rate": 0.5}},
+        },
+    }
+
+    GuideBuilder(constants)._add_neutrals(guide, bd)
+    tip = guide.item_tooltips[neutral_name]
+    assert tip.startswith("Tier 3 neutral")
+    assert "Top enchantments" not in tip
 
 
 def test_late_staples_always_present(sven_guide):

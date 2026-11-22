@@ -19,7 +19,9 @@ other guide:
   level 18, with the runner-up skill order noted in the guide overview.
 - **Talents** chosen by pick rate — the tooltip shows both options' pick/win
   rates so you can deviate when the situation calls for it.
-- **Top neutral items per tier**, with pick/win rates.
+- **Top neutral items per tier**, with pick/win rates. Each neutral item's tooltip
+  also lists the three most popular enchantments for that tier, including pick
+  rate, win rate and sample size.
 - **"Super Late & Turbo" category** pinned into every guide: BKB, Aghanim's
   Shard, Aghanim's Blessing, the hero's super-blink upgrade(s) and a Moon
   Shard to consume — the endgame staples that D2PT's normal-pub data window
