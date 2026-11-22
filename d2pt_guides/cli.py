@@ -78,8 +78,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument(
         "--situational-floor",
         type=float,
-        default=0.15,
-        help="min pick rate for an item to appear as situational (default 0.15)",
+        default=0.0,
+        help="min pick rate in the item-build sample for situational items (default 0: keep all observed items)",
     )
     return p.parse_args(argv)
 

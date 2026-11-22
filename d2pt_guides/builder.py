@@ -58,15 +58,18 @@ ROLE_FOR_POSITION = {
 
 @dataclass
 class BuilderOptions:
-    core_threshold: float = 0.5  # pick rate for an item to count as core
-    situational_floor: float = 0.15  # ignore items below this pick rate
-    max_situational: int = 8  # per phase
+    core_threshold: float = 0.5  # strict: more than half of build matches
+    situational_floor: float = 0.0  # include every observed situational item by default
+    max_situational: int | None = None  # no truncation by default
     neutrals_per_tier: int = 2
     late_staples: bool = True  # pin the Super Late & Turbo category
 
 
 def _pct(x: float) -> str:
     return f"{round(x * 100)}%"
+
+def _pct1(x: float) -> str:
+    return f"{x * 100:.1f}%"
 
 
 def _build_win_rate(build: dict) -> float:
@@ -120,10 +123,12 @@ class GuideBuilder:
             f"{build.get('num_matches', '?')} matches · "
             f"{_pct(_build_win_rate(build))} win rate",
             "",
-            "Item categories: CORE items are bought in >=50% of games and "
-            "listed in typical purchase order. SITUATIONAL items are the "
-            "lower-frequency alternatives — hover them for pick rate, win "
-            "rate and average timing before committing.",
+            "Item categories mirror D2PT: CORE items are bought in >50% of "
+            "this build's matches and ordered by average purchase time. "
+            "SITUATIONAL contains every other observed item; hover for pick "
+            "rate, win rate, average timing and purchase count.",
+            "The first recorded skill points use D2PT order data; later points "
+            "are estimated from the available popular order variants.",
             "Talent tooltips compare both options' pick and win rates.",
             "The Super Late & Turbo category pins endgame staples (BKB, "
             "Shard, Blessing, super-blink, Moon Shard) that pub data often "
@@ -141,12 +146,12 @@ class GuideBuilder:
         return self.c.item_internal_name(item_id)
 
     def _add_items(self, guide: Guide, bd: dict, hero_id: int) -> None:
-        # Starting items: the most common complete starting inventory.
+        # Starting items are a separate D2PT section, based on the common
+        # opening inventory rather than the core-item progression.
         starting = self._starting_inventory(bd)
         if starting:
             guide.item_categories.append(ItemCategory(CAT_STARTING, starting))
 
-        # Per-item pick rates for individual starting items -> tooltips.
         for entry in bd.get("starting_items", []):
             name = self._item_name(entry["raw_item_id"])
             if name and name in starting:
@@ -155,74 +160,90 @@ class GuideBuilder:
                 )
 
         pool = self._progression_pool(bd)
-        phases = [
-            (f"Early Game (0-{EARLY_END} min)", lambda m: m < EARLY_END),
-            (f"Mid Game ({EARLY_END}-{MID_END} min)", lambda m: EARLY_END <= m < MID_END),
-            (f"Late Game ({MID_END}+ min)", lambda m: m >= MID_END),
-        ]
-        for label, in_phase in phases:
-            entries = [e for e in pool if in_phase(e["avg_minute"])]
-            core = sorted(
-                (e for e in entries if e["pr"] >= self.opt.core_threshold),
-                key=lambda e: e["avg_minute"],
-            )
-            situational = sorted(
-                (
-                    e
-                    for e in entries
-                    if self.opt.situational_floor <= e["pr"] < self.opt.core_threshold
-                ),
-                key=lambda e: e["pr"],
-                reverse=True,
-            )[: self.opt.max_situational]
+        core = sorted(
+            (entry for entry in pool if entry["kind"] == "core"),
+            key=lambda entry: (entry["avg_minute"], -entry["pr"], entry["name"]),
+        )
+        situational = sorted(
+            (
+                entry for entry in pool
+                if entry["kind"] == "situational"
+                and entry["pr"] > 0
+                and entry["pr"] >= self.opt.situational_floor
+            ),
+            key=lambda entry: (-entry["pr"], entry["avg_minute"], entry["name"]),
+        )
+        if self.opt.max_situational is not None:
+            situational = situational[: self.opt.max_situational]
 
-            if core:
-                guide.item_categories.append(
-                    ItemCategory(label, [e["name"] for e in core])
-                )
-            if situational:
-                guide.item_categories.append(
-                    ItemCategory(
-                        label.split(" (")[0] + " — Situational",
-                        [e["name"] for e in situational],
-                    )
-                )
-            for e in core:
-                guide.item_tooltips[e["name"]] = (
-                    f"CORE · bought in {_pct(e['pr'])} of matches · "
-                    f"{_pct(e['win_rate'])} WR · avg {e['avg_minute']:.0f} min."
-                )
-            for e in situational:
-                guide.item_tooltips[e["name"]] = (
-                    f"SITUATIONAL · bought in {_pct(e['pr'])} of matches · "
-                    f"{_pct(e['win_rate'])} WR · avg {e['avg_minute']:.0f} min."
-                )
+        if core:
+            guide.item_categories.append(
+                ItemCategory("Core Items", [entry["name"] for entry in core])
+            )
+        if situational:
+            guide.item_categories.append(
+                ItemCategory("Situational Items", [entry["name"] for entry in situational])
+            )
+
+        for entry in core:
+            tip = (
+                f"CORE · pick rate {_pct1(entry['pr'])} of all build matches · "
+                f"{_pct(entry['win_rate'])} WR · avg {entry['avg_minute']:.1f} min"
+            )
+            if entry.get("count"):
+                tip += f" · {int(entry['count'])} matches with purchase"
+            guide.item_tooltips[entry["name"]] = tip + "."
+
+        for entry in situational:
+            tip = f"SITUATIONAL · {self._item_pick_rate_description(entry)}"
+            tip += f" · {_pct(entry['win_rate'])} WR · avg {entry['avg_minute']:.1f} min"
+            if entry.get("min_minute") is not None and entry.get("max_minute") is not None:
+                tip += f" ({entry['min_minute']:.0f}-{entry['max_minute']:.0f} min)"
+            if entry.get("count"):
+                tip += f" · {int(entry['count'])} purchases"
+            guide.item_tooltips[entry["name"]] = tip + "."
 
         self._ensure_boots(guide, pool)
         if self.opt.late_staples:
             self._add_late_staples(guide, pool, hero_id)
 
+    @staticmethod
+    def _item_pick_rate_description(entry: dict) -> str:
+        """Describe pick rate without mixing different statistical samples."""
+        sample_pr = entry.get("sample_pr")
+        if sample_pr is None:
+            return f"pick rate {_pct1(entry['pr'])} of all build matches"
+        description = f"pick rate {_pct1(sample_pr)} in this item-build sample"
+        all_match_pr = entry.get("all_match_pr")
+        if all_match_pr is not None:
+            description += f" · {_pct1(all_match_pr)} of all build matches"
+        return description
+
+
     def _ensure_boots(self, guide: Guide, pool: list[dict]) -> None:
-        """Some meta builds (Io, Tinker, no-boots Huskar, ...) buy boots so
-        rarely that every option lands under the situational floor and the
-        guide ends up bootless. Surface the choice anyway, with honest
-        numbers."""
+        """Surface a boots option when the observed build usually skips boots."""
         boots = self.c.boots_items()
-        if {i for cat in guide.item_categories for i in cat.items} & boots:
+        if {item for category in guide.item_categories for item in category.items} & boots:
             return
+
+        def comparable_rate(entry: dict) -> float:
+            all_match_pr = entry.get("all_match_pr")
+            return all_match_pr if all_match_pr is not None else entry["pr"]
+
         ranked = sorted(
-            (e for e in pool if e["name"] in boots),
-            key=lambda e: e["pr"],
+            (entry for entry in pool if entry["name"] in boots),
+            key=comparable_rate,
             reverse=True,
         )[:2]
         items = []
-        for e in ranked:
-            items.append(e["name"])
-            guide.item_tooltips[e["name"]] = (
-                f"BOOTS · this build usually skips boots — bought in only "
-                f"{_pct(e['pr'])} of matches ({_pct(e['win_rate'])} WR, "
-                f"avg {e['avg_minute']:.0f} min)."
+        for entry in ranked:
+            items.append(entry["name"])
+            tip = (
+                "BOOTS · this build usually skips boots — "
+                f"{self._item_pick_rate_description(entry)} · "
+                f"{_pct(entry['win_rate'])} WR, avg {entry['avg_minute']:.1f} min."
             )
+            guide.item_tooltips[entry["name"]] = tip
         if not items:
             items = ["item_boots"]
             guide.item_tooltips["item_boots"] = (
@@ -237,18 +258,14 @@ class GuideBuilder:
             ItemCategory("Boots (usually skipped)", items),
         )
 
+
     def _add_late_staples(self, guide: Guide, pool: list[dict], hero_id: int) -> None:
-        """Pin the endgame staples that d2pt's normal-pub data window often
+        """Pin the endgame staples that D2PT's normal-pub data window often
         never reaches: BKB, Aghanim's Shard/Blessing, the hero's super-blink
         upgrade(s) and a Moon Shard to consume."""
-        by_name = {e["name"]: e for e in pool}
+        by_name = {entry["name"]: entry for entry in pool}
 
-        # Super-blink choice: any upgrade the data shows, plus the hero's
-        # primary-attribute one (universal heroes get Swift and Overwhelming;
-        # Arcane only appears for them when the data shows it). Melee heroes
-        # additionally always get Overwhelming — the tank/teamfight blink
-        # suits any melee frontliner (Ursa: Swift or Overwhelming).
-        wanted = {b for b in SUPER_BLINKS.values() if b in by_name}
+        wanted = {name for name in SUPER_BLINKS.values() if name in by_name}
         attr = self.c.hero_primary_attr(hero_id)
         if attr in SUPER_BLINKS:
             wanted.add(SUPER_BLINKS[attr])
@@ -256,13 +273,13 @@ class GuideBuilder:
             wanted.update((SUPER_BLINKS["str"], SUPER_BLINKS["agi"]))
         if self.c.hero_is_melee(hero_id):
             wanted.add(SUPER_BLINKS["str"])
-        blinks = [b for b in SUPER_BLINKS.values() if b in wanted]
+        blinks = [name for name in SUPER_BLINKS.values() if name in wanted]
 
         usage = {
             "item_ultimate_scepter_2": "frees the Scepter inventory slot",
             "item_moon_shard": "consume it once slots run out",
         }
-        present = {i for cat in guide.item_categories for i in cat.items}
+        present = {item for category in guide.item_categories for item in category.items}
         items = []
         for name in [
             "item_black_king_bar",
@@ -272,13 +289,13 @@ class GuideBuilder:
             "item_moon_shard",
         ]:
             if name in present:
-                continue  # already in a data-driven category
+                continue
             items.append(name)
-            e = by_name.get(name)
-            if e:
+            entry = by_name.get(name)
+            if entry:
                 tip = (
-                    f"STAPLE · bought in {_pct(e['pr'])} of matches · "
-                    f"{_pct(e['win_rate'])} WR · avg {e['avg_minute']:.0f} min."
+                    f"STAPLE · {self._item_pick_rate_description(entry)} · "
+                    f"{_pct(entry['win_rate'])} WR · avg {entry['avg_minute']:.1f} min."
                 )
             else:
                 tip = (
@@ -290,6 +307,7 @@ class GuideBuilder:
             guide.item_tooltips[name] = tip
         if items:
             guide.item_categories.append(ItemCategory(CAT_SUPER_LATE, items))
+
 
     def _starting_inventory(self, bd: dict) -> list[str]:
         inventories = bd.get("starting_items_new") or []
@@ -306,29 +324,146 @@ class GuideBuilder:
         return [n for n in names if n]
 
     def _progression_pool(self, bd: dict) -> list[dict]:
-        """Merge the item-progression lists, dedup by item id (keep the
-        highest-count entry), and resolve internal names."""
-        merged: dict[int, dict] = {}
+        """Combine all-match progression rates with item-build sample stats.
+
+        anchor_items/anchor_items2/items_mid_late use all selected hero-position
+        matches as their denominator. anchor_item_stats uses the selected
+        item-build sample and reports pick_rate in percentage units.
+        """
+        all_match_by_id: dict[int, dict] = {}
         for key in ("anchor_items", "anchor_items2", "items_mid_late"):
-            for e in bd.get(key) or []:
-                iid = e["raw_item_id"]
-                if iid not in merged or e.get("count", 0) > merged[iid].get("count", 0):
-                    merged[iid] = e
-        pool = []
-        for iid, e in merged.items():
-            name = self._item_name(iid)
-            if not name or e.get("avg_minute") is None:
-                continue
-            pool.append(
-                {
-                    "name": name,
-                    "pr": e.get("pr", 0),
-                    "win_rate": e.get("win_rate", 0),
-                    "avg_minute": e["avg_minute"],
-                    "count": e.get("count", 0),
+            for entry in bd.get(key) or []:
+                raw_iid = entry.get("raw_item_id")
+                if raw_iid is None:
+                    continue
+                try:
+                    iid = int(raw_iid)
+                    raw_pr = float(entry.get("pr", 0) or 0)
+                    count = float(entry.get("count", 0) or 0)
+                except (TypeError, ValueError):
+                    continue
+                pr = raw_pr / 100.0 if raw_pr > 1.0 else raw_pr
+                candidate = {
+                    "pr": max(0.0, min(pr, 1.0)),
+                    "count": count,
+                    "entry": entry,
                 }
-            )
+                previous = all_match_by_id.get(iid)
+                if previous is None or count > previous["count"]:
+                    all_match_by_id[iid] = candidate
+
+        core_by_id: dict[int, dict] = {}
+        for iid, global_stats in all_match_by_id.items():
+            pr = global_stats["pr"]
+            if pr <= self.opt.core_threshold:
+                continue
+            entry = global_stats["entry"]
+            name = self._item_name(iid)
+            avg_minute = entry.get("avg_minute")
+            if not name or avg_minute is None:
+                continue
+            try:
+                win_rate = float(entry.get("win_rate", 0) or 0)
+                avg_minute = float(avg_minute)
+            except (TypeError, ValueError):
+                continue
+            if win_rate > 1.0:
+                win_rate /= 100.0
+            core_by_id[iid] = {
+                "id": iid,
+                "name": name,
+                "kind": "core",
+                "pr": pr,
+                "win_rate": max(0.0, min(win_rate, 1.0)),
+                "avg_minute": avg_minute,
+                "count": entry.get("count", 0) or 0,
+                "min_minute": None,
+                "max_minute": None,
+            }
+
+        situational_by_id: dict[int, dict] = {}
+        item_stats = bd.get("anchor_item_stats") or {}
+        if isinstance(item_stats, dict):
+            for raw_iid, entry in item_stats.items():
+                if not isinstance(entry, dict):
+                    continue
+                try:
+                    iid = int(raw_iid)
+                    raw_pr = float(entry.get("pr", 0) or 0)
+                    win_rate = float(entry.get("win_rate", 0) or 0)
+                except (TypeError, ValueError):
+                    continue
+                if iid in core_by_id:
+                    continue
+                pr = raw_pr / 100.0  # anchor_item_stats.pr is in percentage units
+                if pr <= 0:
+                    continue
+                name = self._item_name(iid)
+                avg_minute = entry.get("avg_minute")
+                if not name or avg_minute is None:
+                    continue
+                try:
+                    avg_minute = float(avg_minute)
+                except (TypeError, ValueError):
+                    continue
+                if win_rate > 1.0:
+                    win_rate /= 100.0
+                min_minute = entry.get("min_minute")
+                max_minute = entry.get("max_minute")
+                try:
+                    min_minute = max(0.0, float(min_minute)) if min_minute is not None else None
+                    max_minute = max(0.0, float(max_minute)) if max_minute is not None else None
+                except (TypeError, ValueError):
+                    min_minute = max_minute = None
+                global_stats = all_match_by_id.get(iid)
+                situational_by_id[iid] = {
+                    "id": iid,
+                    "name": name,
+                    "kind": "situational",
+                    "pr": max(0.0, min(pr, 1.0)),
+                    "sample_pr": max(0.0, min(pr, 1.0)),
+                    "all_match_pr": global_stats["pr"] if global_stats is not None else None,
+                    "win_rate": max(0.0, min(win_rate, 1.0)),
+                    "avg_minute": avg_minute,
+                    "count": entry.get("purchases", entry.get("count", 0)) or 0,
+                    "min_minute": min_minute,
+                    "max_minute": max_minute,
+                }
+
+        if situational_by_id:
+            return list(core_by_id.values()) + list(situational_by_id.values())
+
+        # Compatibility fallback for older cached payloads without
+        # anchor_item_stats. These arrays report all-match fractional rates.
+        pool: list[dict] = []
+        for iid, global_stats in all_match_by_id.items():
+            entry = global_stats["entry"]
+            name = self._item_name(iid)
+            avg_minute = entry.get("avg_minute")
+            if not name or avg_minute is None:
+                continue
+            try:
+                avg_minute = float(avg_minute)
+                win_rate = float(entry.get("win_rate", 0) or 0)
+            except (TypeError, ValueError):
+                continue
+            if win_rate > 1.0:
+                win_rate /= 100.0
+            pool.append({
+                "id": iid,
+                "name": name,
+                "kind": "core" if global_stats["pr"] > self.opt.core_threshold else "situational",
+                "pr": global_stats["pr"],
+                "sample_pr": None,
+                "all_match_pr": global_stats["pr"],
+                "win_rate": max(0.0, min(win_rate, 1.0)),
+                "avg_minute": avg_minute,
+                "count": entry.get("count", 0) or 0,
+                "min_minute": max(0.0, float(entry["min_minute"])) if entry.get("min_minute") is not None else None,
+                "max_minute": max(0.0, float(entry["max_minute"])) if entry.get("max_minute") is not None else None,
+            })
         return pool
+
 
     def _add_neutrals(self, guide: Guide, bd: dict) -> None:
         # Tier dicts are keyed by item id; older payloads also carried a
@@ -394,18 +529,70 @@ class GuideBuilder:
             ult = None  # unusual kit; treat everything as a basic ability
 
         remaining_levels = [lv for lv in ABILITY_LEVELS if lv not in guide.ability_order]
-        priority = sorted(points, key=lambda a: (-points[a], first_seen[a]))
-        # Basics never skilled in the first 10 points still get the leftovers.
-        for a in bd.get("abilities", []):
-            aid = a.get("ability_id")
+        # Preserve the most common order's point counts, but use all returned
+        # D2PT variants to break ties and rank abilities absent from the top order.
+        weighted_counts: dict[int, float] = {}
+        weighted_first: dict[int, int] = {}
+        talent_ids = {
+            side.get("ability_id")
+            for tier in bd.get("talents") or []
+            for side in (tier.get("left"), tier.get("right"))
+            if side and side.get("ability_id") is not None
+        }
+        ability_meta = {
+            ability.get("ability_id"): ability
+            for ability in bd.get("abilities", [])
+            if ability.get("ability_id") is not None
+        }
+        for order_ids, order_stats in orders:
+            weight = float((order_stats or {}).get("pr", 0) or 0)
+            if weight <= 0:
+                weight = 1.0
+            for index, aid in enumerate(order_ids):
+                ability_name = name_of(aid) or ""
+                metadata = ability_meta.get(aid, {})
+                if (
+                    aid in talent_ids
+                    or ability_name.startswith("special_bonus_")
+                    or metadata.get("isTalent")
+                    or metadata.get("isInnate")
+                ):
+                    continue
+                weighted_counts[aid] = weighted_counts.get(aid, 0.0) + weight
+                weighted_first.setdefault(aid, index)
+
+        priority = sorted(
+            points,
+            key=lambda aid: (
+                -points[aid],
+                -weighted_counts.get(aid, 0.0),
+                first_seen[aid],
+            ),
+        )
+        alternative_priority = sorted(
+            (aid for aid in weighted_counts if aid not in points),
+            key=lambda aid: (-weighted_counts[aid], weighted_first[aid]),
+        )
+        priority.extend(alternative_priority)
+
+        # Basics never skilled in any returned order still get the leftovers.
+        for ability in bd.get("abilities", []):
+            aid = ability.get("ability_id")
             if (
                 aid is not None
                 and aid not in points
-                and not a.get("isTalent")
-                and not a.get("isInnate")
+                and aid not in priority
+                and not ability.get("isTalent")
+                and not ability.get("isInnate")
             ):
                 priority.append(aid)
                 points.setdefault(aid, 0)
+        if remaining_levels:
+            self._notes.append(
+                "Skill points after hero level 11 are estimated from the weighted "
+                "popular D2PT order variants; exact later level-by-level picks "
+                "are not included in the API data."
+            )
         for level in remaining_levels:
             aid = self._pick_next(points, priority, ult, level)
             if aid is None:
