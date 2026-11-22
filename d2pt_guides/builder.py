@@ -331,28 +331,86 @@ class GuideBuilder:
         return pool
 
     def _add_neutrals(self, guide: Guide, bd: dict) -> None:
-        # Tier dicts are keyed by item id; older payloads also carried a
-        # shortName per entry, current ones don't.
+        # D2PT can report the same neutral item in more than one tier.
+        # Keep it in the tier where it has the highest number of picks so
+        # its enchantment tooltip is matched to the correct tier.
         tiers = bd.get("neutral_stats") or {}
-        items: list[str] = []
-        for tier in sorted(tiers, key=lambda t: int(t)):
-            ranked = sorted(
-                tiers[tier].items(), key=lambda kv: kv[1].get("count", 0), reverse=True
-            )
-            for iid, e in ranked[: self.opt.neutrals_per_tier]:
-                if e.get("shortName"):
-                    name = f"item_{e['shortName']}"
+        best_by_name: dict[str, tuple[int, int, dict]] = {}
+        for tier in sorted(tiers, key=lambda value: int(value)):
+            for iid, entry in (tiers[tier] or {}).items():
+                if entry.get("shortName"):
+                    name = f"item_{entry['shortName']}"
                 else:
                     name = self._item_name(int(iid))
                 if not name:
                     continue
+                count = int(entry.get("count", 0) or 0)
+                tier_num = int(tier)
+                previous = best_by_name.get(name)
+                if previous is None or count > previous[0]:
+                    best_by_name[name] = (count, tier_num, entry)
+
+        by_tier: dict[int, list[tuple[str, dict, int]]] = {}
+        for name, (count, tier, entry) in best_by_name.items():
+            by_tier.setdefault(tier, []).append((name, entry, count))
+
+        items: list[str] = []
+        for tier in sorted(by_tier):
+            ranked = sorted(by_tier[tier], key=lambda row: (-row[2], row[0]))
+            for name, entry, _count in ranked[: self.opt.neutrals_per_tier]:
                 items.append(name)
-                guide.item_tooltips[name] = (
-                    f"Tier {int(tier) + 1} neutral · picked {_pct(e.get('pick_rate', 0))} "
-                    f"· {_pct(e.get('win_rate', 0))} WR."
+                tip = (
+                    f"Tier {tier + 1} neutral · picked {_pct(entry.get('pick_rate', 0))} "
+                    f"· {_pct(entry.get('win_rate', 0))} WR."
                 )
+                enchantments = self._neutral_enchantment_summary(bd, tier)
+                if enchantments:
+                    tip += f" Top enchantments for this tier: {enchantments}."
+                guide.item_tooltips[name] = tip
         if items:
             guide.item_categories.append(ItemCategory("Top Neutral Items", items))
+
+    def _neutral_enchantment_summary(self, bd: dict, tier: int) -> str:
+        """Return the three most popular enchantments for one neutral tier.
+
+        D2PT enhancement_stats uses zero-based string keys (0-3).
+        Pick rates and win rates are scoped to the selected build.
+        """
+        tier_stats = (bd.get("enhancement_stats") or {}).get(str(tier)) or {}
+        ranked: list[tuple[float, int, int, str, float]] = []
+
+        for raw_id, stats in tier_stats.items():
+            if not isinstance(stats, dict):
+                continue
+            try:
+                enchantment_id = int(raw_id)
+                pick_rate = float(stats.get("pick_rate", 0) or 0)
+                win_rate = float(stats.get("win_rate", 0) or 0)
+                count = int(stats.get("count", 0) or 0)
+            except (TypeError, ValueError):
+                continue
+
+            name = self._item_name(enchantment_id)
+            if (
+                not name
+                or not name.startswith("item_enhancement_")
+                or not 0 < pick_rate <= 1
+            ):
+                continue
+
+            ranked.append((pick_rate, count, enchantment_id, name, win_rate))
+
+        ranked.sort(key=lambda row: (-row[0], -row[1], row[2]))
+
+        parts = []
+        for pick_rate, count, _enchantment_id, name, win_rate in ranked[:3]:
+            display_name = self.c.item_display_name(name)
+            parts.append(
+                f"{display_name} {_pct(pick_rate)} pick · "
+                f"{_pct(win_rate)} WR (n={count})"
+            )
+
+        return "; ".join(parts)
 
     # --- abilities -----------------------------------------------------------
 
