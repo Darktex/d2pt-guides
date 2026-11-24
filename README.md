@@ -70,7 +70,7 @@ Other useful flags:
 | `--top-builds N` | up to N guides per hero+position (one per D2PT build/facet) |
 | `--min-matches N` | skip hero/position combos with few recent matches (default 30) |
 | `--situational-floor 0.15` | min pick rate for an item to show as situational |
-| `--patch 7.40c` | patch label stamped on the guide (default: newest patch from OpenDota) |
+| `--patch 7.40c` | patch label stamped on the guide (default: newest patch from Valve's patch notes) |
 | `--no-late-staples` | don't pin the Super Late & Turbo category |
 
 ## Automatic weekly updates (Windows)
@@ -90,13 +90,27 @@ Register-ScheduledTask -TaskName "d2pt-guides weekly update" `
     -RestartCount 8 -RestartInterval (New-TimeSpan -Minutes 30))
 ```
 
+When Valve ships a new patch, the next run updates right away instead of
+waiting out the week (it compares the current patch against
+`output\last_patch.txt`). To refresh by hand at any time:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\update_guides.ps1 -Force
+# or, on any OS:
+python -m d2pt_guides --all-heroes --install --replace
+```
+
 ## How it works
 
 - Build data comes from D2PT's JSON API (`/api/hero/<id>/builds?position=pos N`,
   `/api/heroes/list`). Responses are cached for 30 minutes under
   `~/.cache/d2pt-guides/`.
-- Hero/item/ability id ↔ name mappings come from OpenDota's constants API
-  (cached for a week).
+- Hero/item/ability id ↔ name mappings come from OpenDota's constants API,
+  cached for a week but refetched as soon as a new patch is out. Ids OpenDota
+  doesn't know yet fall back to Valve's own item list.
+- Items the current patch removed (read from Valve's patch notes, e.g.
+  Javelin, Helm of the Overlord and Khanda in 7.42) are dropped, since
+  D2PT's ~8-day window can still include games from before the patch.
 - Filenames are stable across regenerations (`<hero>_<deterministic id>.build`
   per hero+position+build slot), so updating overwrites each guide in place —
   the client treats it as the same guide and anyone following it keeps the

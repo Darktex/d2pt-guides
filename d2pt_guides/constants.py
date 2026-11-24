@@ -11,6 +11,7 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 
 OPENDOTA = "https://api.opendota.com/api/constants"
+VALVE_FEED = "https://www.dota2.com/datafeed"
 CACHE_DIR = Path.home() / ".cache" / "d2pt-guides"
 CACHE_TTL = 7 * 24 * 3600  # constants change at most once per patch
 
@@ -32,15 +33,37 @@ def fetch_json(url: str, cache_name: str | None = None, ttl: int = CACHE_TTL) ->
     return data
 
 
+def removed_items_in_notes(notes: dict) -> set[int]:
+    """Item ids a Valve patch-notes payload marks as removed from the game."""
+    removed = set()
+    for it in notes.get("items") or []:
+        texts = [n.get("note", "") for n in it.get("ability_notes") or []]
+        if any("removed from the game" in t.lower() for t in texts):
+            removed.add(int(it["ability_id"]))
+    return removed
+
+
 class Constants:
     """Lookup tables between display names, internal names and ids."""
 
     def __init__(self) -> None:
-        self._heroes = fetch_json(f"{OPENDOTA}/heroes", "heroes")
-        self._items = fetch_json(f"{OPENDOTA}/items", "items")
-        self._item_ids = fetch_json(f"{OPENDOTA}/item_ids", "item_ids")
-        self._abilities = fetch_json(f"{OPENDOTA}/abilities", "abilities")
-        self._ability_ids = fetch_json(f"{OPENDOTA}/ability_ids", "ability_ids")
+        # A new patch adds items and abilities, so constants cached under the
+        # previous patch are thrown away instead of waiting out the TTL.
+        patch = self.latest_patch()
+        marker = CACHE_DIR / "constants_patch.txt"
+        try:
+            cached_patch = marker.read_text(encoding="utf-8").strip()
+        except OSError:
+            cached_patch = ""
+        ttl = 0 if patch and patch != cached_patch else CACHE_TTL
+
+        self._heroes = fetch_json(f"{OPENDOTA}/heroes", "heroes", ttl)
+        self._items = fetch_json(f"{OPENDOTA}/items", "items", ttl)
+        self._item_ids = fetch_json(f"{OPENDOTA}/item_ids", "item_ids", ttl)
+        self._abilities = fetch_json(f"{OPENDOTA}/abilities", "abilities", ttl)
+        self._ability_ids = fetch_json(f"{OPENDOTA}/ability_ids", "ability_ids", ttl)
+        if patch and patch != cached_patch:
+            marker.write_text(patch, encoding="utf-8")
 
     # --- heroes -----------------------------------------------------------
     def hero_by_id(self, hero_id: int) -> dict:
@@ -100,9 +123,14 @@ class Constants:
 
         Valve's patch-notes feed knows letter patches; OpenDota's list only
         tracks majors ('7.41'), so it is just the fallback."""
+        if not hasattr(self, "_patch"):
+            self._patch = self._fetch_latest_patch()
+        return self._patch
+
+    def _fetch_latest_patch(self) -> str:
         try:
             notes = fetch_json(
-                "https://www.dota2.com/datafeed/patchnoteslist?language=english",
+                f"{VALVE_FEED}/patchnoteslist?language=english",
                 "patchnoteslist",
                 ttl=24 * 3600,
             )
@@ -119,9 +147,51 @@ class Constants:
 
     # --- items ------------------------------------------------------------
     def item_internal_name(self, item_id: int) -> str | None:
-        """36 -> 'item_magic_wand'. Returns None for unknown ids."""
+        """36 -> 'item_magic_wand'. Returns None for unknown ids and for
+        items the newest patch removed from the game."""
         short = self._item_ids.get(str(item_id))
-        return f"item_{short}" if short else None
+        name = f"item_{short}" if short else self._valve_item_names().get(item_id)
+        if name and item_id in self.removed_item_ids():
+            return None
+        return name
+
+    def _valve_item_names(self) -> dict[int, str]:
+        """Valve's own item list, which is current on patch day; used for ids
+        OpenDota doesn't know yet."""
+        if not hasattr(self, "_valve_items"):
+            self._valve_items = {}
+            try:
+                data = fetch_json(
+                    f"{VALVE_FEED}/itemlist?language=english",
+                    "valve_itemlist",
+                    ttl=24 * 3600,
+                )
+                for it in data["result"]["data"]["itemabilities"]:
+                    self._valve_items[int(it["id"])] = it["name"]
+            except Exception:
+                pass
+        return self._valve_items
+
+    def removed_item_ids(self) -> set[int]:
+        """Items the newest patch removed (7.42: Javelin, Helm of the
+        Overlord, Khanda). D2PT's data window can still contain games from
+        before the patch, so these must not end up in a guide."""
+        if not hasattr(self, "_removed"):
+            self._removed = set()
+            patch = self.latest_patch()
+            # A hotfix ('7.42a') doesn't repeat its major patch's removals.
+            versions = {patch, patch.rstrip("abcdefghijklmnopqrstuvwxyz")} - {""}
+            for version in sorted(versions):
+                try:
+                    notes = fetch_json(
+                        f"{VALVE_FEED}/patchnotes?version={version}&language=english",
+                        f"patchnotes_{version}",
+                        ttl=24 * 3600,
+                    )
+                except Exception:
+                    continue
+                self._removed |= removed_items_in_notes(notes)
+        return self._removed
 
     def item_display_name(self, internal: str) -> str:
         short = internal.removeprefix("item_")
