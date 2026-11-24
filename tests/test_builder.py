@@ -17,7 +17,7 @@ from d2pt_guides.builder import (
     GuideBuilder,
     TALENT_LEVELS,
 )
-from d2pt_guides.constants import Constants
+from d2pt_guides.constants import Constants, removed_items_in_notes
 from d2pt_guides.guide import CAT_STARTING
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -179,3 +179,45 @@ def test_real_guide_file_parses_with_same_conventions():
     assert text.startswith('"guidedata"')
     assert '"GuideFormatVersion"\t\t"2"' in text
     assert text.count("{") == text.count("}")
+
+
+def test_items_removed_by_the_patch_never_reach_a_guide(constants, monkeypatch):
+    """D2PT's data window can straddle a patch: games from before 7.42 still
+    show Javelin, Khanda, etc. Items the patch removed must be dropped."""
+    build = json.loads((FIXTURES / "builds_sven_pos1.json").read_text())[0]
+    bd = build["build_data"]
+    javelin = {
+        "pr": 0.7, "key": "7::1", "count": 1700, "win_rate": 0.55,
+        "avg_minute": 20.0, "std_minute": 3.0, "raw_item_id": 7,
+    }
+    bd["items_mid_late"] = [*bd["items_mid_late"], javelin]
+    echo_id = next(
+        e["raw_item_id"]
+        for e in bd["items_mid_late"]
+        if constants.item_internal_name(e["raw_item_id"]) == "item_echo_sabre"
+    )
+    monkeypatch.setattr(constants, "_removed", {7, echo_id}, raising=False)
+
+    guide = GuideBuilder(constants).build_guide(build)
+    everywhere = {i for c in guide.item_categories for i in c.items}
+    assert "item_javelin" not in everywhere
+    assert "item_echo_sabre" not in everywhere
+    assert "item_javelin" not in guide.item_tooltips
+
+
+def test_removed_items_parsed_from_valve_patch_notes():
+    notes = {
+        "items": [
+            {"ability_id": 7, "ability_notes": [{"note": "Item removed from the game"}]},
+            {"ability_id": 1808, "ability_notes": [{"note": "Item removed from the game"}, {"note": "<br>"}]},
+            {"ability_id": 151, "ability_notes": [{"note": "Unholy Strength can now be toggled"}]},
+        ]
+    }
+    assert removed_items_in_notes(notes) == {7, 1808}
+
+
+def test_unknown_item_ids_fall_back_to_valve_item_list(constants, monkeypatch):
+    """On patch day OpenDota may not know a new item's id yet."""
+    monkeypatch.setattr(constants, "_valve_items", {999_999: "item_brand_new"}, raising=False)
+    assert constants.item_internal_name(999_999) == "item_brand_new"
+    assert constants.item_internal_name(999_998) is None

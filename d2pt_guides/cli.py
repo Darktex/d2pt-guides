@@ -70,6 +70,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "name from OpenDota)",
     )
     p.add_argument(
+        "--print-patch",
+        action="store_true",
+        help="print the newest Dota 2 patch name (e.g. 7.42) and exit",
+    )
+    p.add_argument(
         "--no-late-staples",
         action="store_true",
         help="don't pin the 'Super Late & Turbo' category (BKB, Aghanim's "
@@ -153,6 +158,13 @@ def pick_positions(hero_row: dict, requested: list[str], min_matches: int) -> li
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
+    if args.print_patch:
+        patch = Constants().latest_patch()
+        if not patch:
+            print("error: could not determine the current patch", file=sys.stderr)
+            return 1
+        print(patch)
+        return 0
     if not args.heroes and not args.all_heroes:
         print("error: name at least one hero or pass --all-heroes", file=sys.stderr)
         return 2

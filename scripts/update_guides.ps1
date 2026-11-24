@@ -6,7 +6,8 @@
 #
 # The task fires weekly and at every logon. This script decides whether
 # there is anything to do:
-#   - If the last successful update is younger than -MinAgeDays, exit 0.
+#   - If the last successful update is younger than -MinAgeDays and was made
+#     for the current patch, exit 0. A new patch (or -Force) updates at once.
 #   - If Dota 2 is running, wait quietly until it closes (the client only
 #     picks up guide files at startup), up to -MaxWaitHours.
 # Appends a log to output\update.log and records the last successful run in
@@ -15,13 +16,15 @@ param(
     [string]$GuidesDir = "",
     [double]$MinAgeDays = 6,
     [double]$MaxWaitHours = 16,
-    [int]$PollSeconds = 60
+    [int]$PollSeconds = 60,
+    [switch]$Force
 )
 
 $repo = Split-Path -Parent $PSScriptRoot
 $outDir = Join-Path $repo "output"
 $log = Join-Path $outDir "update.log"
 $stamp = Join-Path $outDir "last_success.txt"
+$patchStamp = Join-Path $outDir "last_patch.txt"
 New-Item -ItemType Directory -Force $outDir | Out-Null
 
 function Write-Log($msg) {
@@ -33,10 +36,17 @@ function Write-Log($msg) {
 }
 function Test-Dota { [bool](Get-Process -Name dota2 -ErrorAction SilentlyContinue) }
 
-if (Test-Path $stamp) {
+Set-Location $repo
+$patch = (cmd /c "python -m d2pt_guides --print-patch 2>nul" | Select-Object -First 1)
+if ($patch) { $patch = $patch.Trim() }
+$lastPatch = if (Test-Path $patchStamp) { (Get-Content $patchStamp -Raw).Trim() } else { "" }
+$newPatch = $patch -and ($patch -ne $lastPatch)
+
+if (-not $Force -and -not $newPatch -and (Test-Path $stamp)) {
     $age = (Get-Date) - (Get-Item $stamp).LastWriteTime
     if ($age.TotalDays -lt $MinAgeDays) { exit 0 }
 }
+if ($newPatch) { Write-Log "New patch $patch (last update was for '$lastPatch')." }
 
 if (Test-Dota) {
     Write-Log "Dota 2 is running; waiting for it to close."
@@ -51,7 +61,6 @@ if (Test-Dota) {
     Write-Log "Dota 2 closed."
 }
 
-Set-Location $repo
 $cmd = "python -m d2pt_guides --all-heroes --install --replace"
 if ($GuidesDir) { $cmd += " --guides-dir ""$GuidesDir""" }
 Write-Log "Running: $cmd"
@@ -63,5 +72,6 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 Get-Date -Format s | Set-Content $stamp
+if ($patch) { $patch | Set-Content $patchStamp }
 Write-Log "Done."
 exit 0

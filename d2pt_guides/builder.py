@@ -339,6 +339,7 @@ class GuideBuilder:
             ranked = sorted(
                 tiers[tier].items(), key=lambda kv: kv[1].get("count", 0), reverse=True
             )
+            ranked = [kv for kv in ranked if int(kv[0]) not in self.c.removed_item_ids()]
             for iid, e in ranked[: self.opt.neutrals_per_tier]:
                 if e.get("shortName"):
                     name = f"item_{e['shortName']}"
